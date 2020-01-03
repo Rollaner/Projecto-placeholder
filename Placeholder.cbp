@@ -35,7 +35,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Map.h" />
+		<Unit filename="functionscat.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="functionscat.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="functionstag.c">
+			<Option compilerVar="CC" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="functionstag.h">
