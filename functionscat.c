@@ -6,16 +6,41 @@
 //#include "functionstag.h"
 #include "Map.h"
 
-typedef struct cat{
+long long stringHash(const void * key) {
+    long long hash = 5381;
+
+    const char * ptr;
+
+    for (ptr = key; *ptr != '\0'; ptr++) {
+        hash = ((hash << 5) + hash) + tolower(*ptr); /* hash * 33 + c */
+    }
+
+    return hash;
+}
+
+int stringEqual(const void * key1, const void * key2) {
+    const char * A = key1;
+    const char * B = key2;
+
+    return strcmp(A, B) == 0;
+}
+
+struct cat{
     Map* tagMap;
     Map* fileMap;
+    char* name;
 };
 
 /** actualmente solo se esta trabajando a nivel de categoria, por lo tanto las tags solo seran strings de momento */
 
 
 void addCat(char * category,Map * catMap) {
-    printf("hewwo");
+    cat* ToAdd = malloc(sizeof(cat));
+    ToAdd->fileMap = createMap(stringHash,stringEqual);
+    ToAdd->tagMap = createMap(stringHash,stringEqual);
+    insertMap(catMap,category,ToAdd);
+    ToAdd->name = calloc(30,sizeof(char));
+    ToAdd->name = category;
     return;
 }
 

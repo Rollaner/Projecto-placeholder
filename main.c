@@ -8,41 +8,24 @@
 #include "list.h"
 #include "queue.h"
 
-long long stringHash(const void * key) {
-    long long hash = 5381;
-
-    const char * ptr;
-
-    for (ptr = key; *ptr != '\0'; ptr++) {
-        hash = ((hash << 5) + hash) + tolower(*ptr); /* hash * 33 + c */
-    }
-
-    return hash;
-}
-
-int stringEqual(const void * key1, const void * key2) {
-    const char * A = key1;
-    const char * B = key2;
-
-    return strcmp(A, B) == 0;
-}
 
 int main()
 {
     int op = 0;
     char* catname = calloc(30,sizeof(char));
-    Map* catMap = createMap(stringHash,stringEqual);
+    Map* catMap = createMap(stringHash,stringEqual);    /** mapa para categorias, stringhash y stringEqual
+                                                            estan en functionscat.h y .c*/
     //Map* catMap = loadcats(Catfile);
     printf("Ingrese numero de la operacion deseada: \n");
     printf("1) Agregar categoria \n");
     printf("2) Eliminar categoria \n");
     printf("3) Ingresar categoria \n");
     printf("4) Salir \n");
-    while(op!=4){
+    while(op < 4){          /** Menu de categoria, usa los valores que entrege el usuario (nombres)*/
         scanf("%d", &op);
         switch(op){
         case 1: printf("Ingrese nombre de la categoria \n");
-            fgets(catname,10,stdin);             //para eliminar "\n del switch"
+            fgets(catname,10,stdin);             /**para eliminar "\n" del switch*/
             fgets(catname,30,stdin);
             addCat(catname,catMap);
             break;
@@ -56,6 +39,22 @@ int main()
             fgets(catname,30,stdin);
             printf("entrando a categoria %s ", catname);
             enterCat(catname);
+            while(op < 4){                  /** Menu de tag, usa los valores que entrege la funcion enterCat*/
+                scanf("%d", &op);
+                switch(op){
+                case 1:
+                    printf("case 1");
+                    break;
+                case 2:
+                    printf("case 2");
+                    break;
+                case 3:
+                    printf("case 3");
+                    break;
+                default: printf("Opcion no valida, intente nuevamentente \n");
+                continue;
+                }
+            }
             break;
         default: printf("Opcion no valida, intente nuevamentente \n");
         continue;

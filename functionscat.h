@@ -7,6 +7,10 @@
 
 typedef struct cat cat;
 
+long long stringHash(const void * key);
+
+int stringEqual(const void * key1, const void * key2);
+
 //Map* loadCats (FILE* catfile);
 
 void addCat (char * category,Map * catMap);
