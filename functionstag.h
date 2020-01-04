@@ -1,6 +1,12 @@
-#ifndef FUNCTIONSTAG_H_INCLUDED
-#define FUNCTIONSTAG_H_INCLUDED
+#ifndef functionstag_h
+#define functionstag_h
+#include "Map.h"
+#include "list.h"
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include "functionscat.h"
 
 
 
-#endif // FUNCTIONSTAG_H_INCLUDED
+#endif //  functionstag_h

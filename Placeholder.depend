@@ -6,7 +6,7 @@
 
 1567652630 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\list.h
 
-1578072625 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\map.c
+1578180935 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\map.c
 	"Map.h"
 	<math.h>
 	<string.h>
@@ -23,7 +23,7 @@
 
 1567652898 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\queue.h
 
-1578097291 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\main.c
+1578181977 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\main.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
@@ -34,7 +34,7 @@
 	"list.h"
 	"queue.h"
 
-1578096569 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.h
+1578181622 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -48,9 +48,15 @@
 	<stdint.h>
 	<assert.h>
 
-1578071094 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionstag.h
+1578181622 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionstag.h
+	"Map.h"
+	"list.h"
+	<stdio.h>
+	<string.h>
+	<ctype.h>
+	"functionscat.h"
 
-1578097258 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.c
+1578181249 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
