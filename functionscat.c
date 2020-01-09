@@ -25,6 +25,18 @@ int stringEqual(const void * key1, const void * key2) {
     return strcmp(A, B) == 0;
 }
 
+const char *get_csv_field (char * tmp, int i) {
+    //se crea una copia del string tmp
+    char * line = _strdup (tmp);
+    const char * tok;
+    for (tok = strtok (line, ","); tok && *tok; tok = strtok (NULL, ",\n")) {
+        if (!--i) {
+            return tok;
+        }
+    }
+    return NULL;
+}
+
 struct cat{
     Map* tagMap;
     Map* fileMap;
@@ -33,15 +45,42 @@ struct cat{
 
 /** actualmente solo se esta trabajando a nivel de categoria, por lo tanto las tags solo seran strings de momento */
 
+Map* loadCats(){
+    Map* CatMap = createMap(stringHash,stringEqual);
+    FILE* Catfile = fopen("Files\\Categories.csv","r");
+    char* String = calloc(100,sizeof(char));                    //y crea un artista nuevo de ser necesario, ademas crea los albumes ya pre-escritos y los rellena
+    while(fgets(String,100,Catfile) != NULL){
+        cat* catLoader = malloc(sizeof(cat));
+        catLoader->name = calloc(30, sizeof(30,sizeof(char)));
+        catLoader->fileMap = createMap(stringHash,stringEqual);
+        catLoader->tagMap = createMap(stringHash,stringEqual);
+        strcpy(catLoader->name,get_csv_field(String,1));
+        insertMap(CatMap,catLoader->name,catLoader);
+        //printf("%s \n",catLoader->name);
+    }
+    return CatMap;
+}
+
 
 void addCat(char * category,Map * catMap) {
     cat* ToAdd = malloc(sizeof(cat));
-    ToAdd->fileMap = createMap(stringHash,stringEqual);
+    ToAdd->fileMap = createMap(stringHash,stringEqual);     // inicializa variables struct cat
     ToAdd->tagMap = createMap(stringHash,stringEqual);
-    insertMap(catMap,category,ToAdd);
-    ToAdd->name = calloc(30,sizeof(char));
+    insertMap(catMap,category,ToAdd);                       // añadido a mapa global de categorias
+    ToAdd->name = calloc(30,sizeof(char));                  // nombre para presentar categoria
     ToAdd->name = category;
-    return;
+    return;     /** falta revisar que no se dupliquen un if*/
+}
+
+void catList(Map* catMap){
+    cat* tempcat = firstMap(catMap);
+    printf("%s  \n",tempcat->name);
+    while(tempcat!= NULL){
+        tempcat = nextMap(catMap);
+        if(tempcat == NULL)
+            break;
+        printf("%s \n",tempcat->name);
+    }
 }
 
 void deleteCat(char * category, Map * catMap) {
@@ -50,6 +89,17 @@ void deleteCat(char * category, Map * catMap) {
 }
 
 void enterCat(char * category) {
-    printf(":3");
+
+    system("cls");
+
+    printf("Ha ingresado exitosamente a la categoria %s \n\n", category);
+    printf("Presione ENTER para continuar:\n");
+
+    fflush(stdin);
+    getchar();
+
+    system("cls");
+
+
     return;
 }
