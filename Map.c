@@ -57,7 +57,7 @@ struct Map {
     long current;
     int primeIndex: 6; // indice del primo en cual esta.
     long loadFactor; // el factor de carga que tiene el mapa.
-
+    int deleted;
     Pair ** buckets;
 
     MapHashCallBack hash;
@@ -126,6 +126,7 @@ Map * createMap(MapHashCallBack hash, MapEqualCallBack equal) {
     new->primeIndex = 0; // se guarda el indice del actual numero primo.
     new->count = 0;
     new->current = 0;
+    new->deleted = 0;
     new->loadFactor = (long) ceil(primes[0] * maxLoadFactor); // se calcula el factor de carga.
     new->size = primes[0];
     new->buckets = (Pair **)malloc(sizeof(Pair *) * primes[0]);

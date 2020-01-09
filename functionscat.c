@@ -84,7 +84,16 @@ void catList(Map* catMap){
 }
 
 void deleteCat(char * category, Map * catMap) {
-    printf("dis is test");
+    printf("Esta accion es permanente, confirmar? y/n");
+    char confirm = 'N';
+    scanf("%c", confirm);
+    if(confirm == 'y'){
+        cat* ToDel = malloc(sizeof(cat));
+        //ToDel->fileMap = deleteMap(stringHash,stringEqual);
+        //ToDel->tagMap = deleteMap(stringHash,stringEqual);
+        ToDel->name = calloc(30,sizeof(char));                  // nombre para presentar categoria
+        eraseKeyMap(catMap,ToDel);
+    }
     return;
 }
 
