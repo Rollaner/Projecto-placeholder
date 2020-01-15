@@ -16,15 +16,6 @@ int main()
     char* catname = calloc(30,sizeof(char));
 //    Map* catMap = createMap(stringHash,stringEqual); /** mapa para categorias*/
     //Map* tagMap = createMap(stringHash,stringEqual);         /**estan en functionscat.h y .c*/
-    printf("                Bienvenido a\n\n"); //Portada del programa
-    printf("                PLACEHOLDER \n\n\n\n");
-    printf("                                 Creado por: \n");
-    printf("                                 Sebastian Atonni y Miguel Escriba\n\n\n");
-    printf("       Presiona [ENTER] para continuar...");
-    fflush(stdin);
-    getchar();
-    system("cls");
-    printf("                PLACEHOLDER \n\n"); //con esto en el menu, el nombre sigue apareciendo arriba*/
 
     Map* catMap = loadCats();
 
@@ -38,6 +29,7 @@ int main()
             fgets(catname,10,stdin);             /**para eliminar "\n" del switch*/
             scanf("%s",catname);
             addCat(catname,catMap);
+            system("cls");
             loadmenu();
             catList(catMap);
             break;
@@ -96,6 +88,9 @@ int main()
 }
 
 void loadmenu(){
+    printf("                Bienvenido a\n\n"); //Portada del programa
+    printf("                PLACEHOLDER \n\n\n\n");
+
     printf("Ingrese numero de la operacion deseada: \n"); /**Menu principal del programa*/
     printf("1) Agregar categoria \n");
     printf("2) Eliminar categoria \n");

@@ -3,8 +3,10 @@
 #include <string.h>
 #include <ctype.h>
 #include "functionscat.h"
-//#include "functionstag.h"
+#include "functionstag.h"
 #include "Map.h"
+
+void importData(Map* catMap, Map* tagMap, Map* albumMap);
 
 long long stringHash(const void * key) {
     long long hash = 5381;
@@ -61,7 +63,6 @@ Map* loadCats(){
     return CatMap;
 }
 
-
 void addCat(char * category,Map * catMap) {
     cat* ToAdd = malloc(sizeof(cat));
     ToAdd->fileMap = createMap(stringHash,stringEqual);     // inicializa variables struct cat
@@ -83,16 +84,18 @@ void catList(Map* catMap){
     }
 }
 
-void deleteCat(char * category, Map * catMap) {
+void deleteCat(char * category, Map * catMap){
     printf("Esta accion es permanente, confirmar? y/n");
     char confirm = 'N';
-    scanf("%c", confirm);
+    scanf("%c", &confirm);
     if(confirm == 'y'){
         cat* ToDel = malloc(sizeof(cat));
-        //ToDel->fileMap = deleteMap(stringHash,stringEqual);
-        //ToDel->tagMap = deleteMap(stringHash,stringEqual);
-        ToDel->name = calloc(30,sizeof(char));                  // nombre para presentar categoria
-        eraseKeyMap(catMap,ToDel);
+        removeAllMap(ToDel->fileMap);
+        removeAllMap(ToDel->tagMap);
+        ToDel->name = calloc(30,sizeof(char));
+        strcpy(ToDel->name, category); //Indica que cat borrar
+        eraseKeyMap(catMap,ToDel->name);
+
     }
     return;
 }
