@@ -1,29 +1,30 @@
 # depslib dependency file v1.0
-1567652630 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\list.c
+1579106940 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\list.c
 	"list.h"
 	<stdlib.h>
 	<assert.h>
 
-1567652630 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\list.h
+1579106940 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\list.h
 
-1578180935 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\map.c
+1572126884 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\map.c
 	"Map.h"
 	<math.h>
 	<string.h>
 	<stdlib.h>
 	<stdint.h>
 	<assert.h>
+	<stdio.h>
 
-1538512728 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\map.h
+1572126884 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\map.h
 
-1567652898 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\queue.c
+1579106940 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\queue.c
 	"queue.h"
 	<stdlib.h>
 	<assert.h>
 
-1567652898 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\queue.h
+1579106940 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\queue.h
 
-1578181977 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\main.c
+1579139450 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\main.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
@@ -34,7 +35,7 @@
 	"list.h"
 	"queue.h"
 
-1578181622 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.h
+1579113182 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -48,7 +49,65 @@
 	<stdint.h>
 	<assert.h>
 
-1578181622 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionstag.h
+1579139650 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionstag.h
+	"Map.h"
+	"list.h"
+	<stdio.h>
+	<string.h>
+	<ctype.h>
+
+1579139592 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"functionscat.h"
+	"functionstag.h"
+	"Map.h"
+	"list.h"
+
+1578183918 source:c:\users\mt352\onedrive\escritorio\projecto-placeholder\list.c
+	"list.h"
+	<stdlib.h>
+	<assert.h>
+
+1578183918 c:\users\mt352\onedrive\escritorio\projecto-placeholder\list.h
+
+1578183918 source:c:\users\mt352\onedrive\escritorio\projecto-placeholder\map.c
+	"Map.h"
+	<math.h>
+	<string.h>
+	<stdlib.h>
+	<stdint.h>
+	<assert.h>
+
+1578183918 c:\users\mt352\onedrive\escritorio\projecto-placeholder\map.h
+
+1578183919 source:c:\users\mt352\onedrive\escritorio\projecto-placeholder\queue.c
+	"queue.h"
+	<stdlib.h>
+	<assert.h>
+
+1578183919 c:\users\mt352\onedrive\escritorio\projecto-placeholder\queue.h
+
+1578271568 source:c:\users\mt352\onedrive\escritorio\projecto-placeholder\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"functionscat.h"
+	"functionstag.h"
+	"Map.h"
+	"list.h"
+	"queue.h"
+
+1578183918 c:\users\mt352\onedrive\escritorio\projecto-placeholder\functionscat.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Map.h"
+
+1578183918 c:\users\mt352\onedrive\escritorio\projecto-placeholder\functionstag.h
 	"Map.h"
 	"list.h"
 	<stdio.h>
@@ -56,11 +115,107 @@
 	<ctype.h>
 	"functionscat.h"
 
-1578181249 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.c
+1578266790 source:c:\users\mt352\onedrive\escritorio\projecto-placeholder\functionscat.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<ctype.h>
 	"functionscat.h"
 	"Map.h"
+
+1578581210 source:c:\users\rollaner\desktop\proyectoplaceholder\list.c
+	"list.h"
+	<stdlib.h>
+	<assert.h>
+
+1578581210 c:\users\rollaner\desktop\proyectoplaceholder\list.h
+
+1578581210 source:c:\users\rollaner\desktop\proyectoplaceholder\map.c
+	"Map.h"
+	<math.h>
+	<string.h>
+	<stdlib.h>
+	<stdint.h>
+	<assert.h>
+
+1578581210 c:\users\rollaner\desktop\proyectoplaceholder\map.h
+
+1578581210 source:c:\users\rollaner\desktop\proyectoplaceholder\queue.c
+	"queue.h"
+	<stdlib.h>
+	<assert.h>
+
+1578581210 c:\users\rollaner\desktop\proyectoplaceholder\queue.h
+
+1578581509 source:c:\users\rollaner\desktop\proyectoplaceholder\functionscat.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"functionscat.h"
+	"Map.h"
+
+1578581210 c:\users\rollaner\desktop\proyectoplaceholder\functionscat.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Map.h"
+
+1579113176 source:c:\users\mt352\onedrive\escritorio\projecto-placeholder-migue\functionscat.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"functionscat.h"
+	"functionstag.h"
+	"Map.h"
+
+1579113180 c:\users\mt352\onedrive\escritorio\projecto-placeholder-migue\functionscat.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Map.h"
+
+1579106938 c:\users\mt352\onedrive\escritorio\projecto-placeholder-migue\map.h
+
+1579106938 source:c:\users\mt352\onedrive\escritorio\projecto-placeholder-migue\list.c
+	"list.h"
+	<stdlib.h>
+	<assert.h>
+
+1579106938 c:\users\mt352\onedrive\escritorio\projecto-placeholder-migue\list.h
+
+1579113465 source:c:\users\mt352\onedrive\escritorio\projecto-placeholder-migue\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"functionscat.h"
+	"functionstag.h"
+	"Map.h"
+	"list.h"
+	"queue.h"
+
+1579113179 c:\users\mt352\onedrive\escritorio\projecto-placeholder-migue\functionstag.h
+	"Map.h"
+	"list.h"
+	<stdio.h>
+	<string.h>
+	<ctype.h>
+	"functionscat.h"
+
+1579106938 c:\users\mt352\onedrive\escritorio\projecto-placeholder-migue\queue.h
+
+1579106938 source:c:\users\mt352\onedrive\escritorio\projecto-placeholder-migue\map.c
+	"Map.h"
+	<math.h>
+	<string.h>
+	<stdlib.h>
+	<stdint.h>
+	<assert.h>
+
+1579106938 source:c:\users\mt352\onedrive\escritorio\projecto-placeholder-migue\queue.c
+	"queue.h"
+	<stdlib.h>
+	<assert.h>
 

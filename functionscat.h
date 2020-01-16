@@ -11,12 +11,15 @@ long long stringHash(const void * key);
 
 int stringEqual(const void * key1, const void * key2);
 
-//Map* loadCats (FILE* catfile);
+Map* loadCats ();
+
+void catlist(Map* catMap);
 
 void addCat (char * category,Map * catMap);
 
 void deleteCat (char * category, Map * catMap);
 
-void enterCat (char * category);
+void enterCat (char * category); /**que es category?*/
+
 
 #endif // // functionscat_h //

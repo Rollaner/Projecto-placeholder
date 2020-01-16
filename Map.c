@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <assert.h>
+#include <stdio.h>
 
 typedef struct pair Pair;
 
@@ -178,7 +179,7 @@ void * eraseKeyMap(Map * map, const void * key) {
 
     map->buckets[idx] = NULL;
 
-    map->count -= 1;
+    map->count --;
 
     return aux;
 }
@@ -212,6 +213,24 @@ void * firstMap(Map * map) {
     return NULL;
 }
 
+void * firstKeyMap(Map * map) {
+    assert(map != NULL); // El mapa no puede ser NULL.
+
+    if (map->buckets == NULL) return NULL;
+
+    long i;
+
+    for (i = 0; i < map->size; i++) {
+        if (map->buckets[i] != NULL && map->buckets[i]->key != NULL) {
+            map->current = i;
+            return (void *)map->buckets[i]->value;
+        }
+    }
+
+    return NULL;
+}
+
+
 void * nextMap(Map * map) {
     assert(map != NULL); // El mapa no puede ser NULL.
 
@@ -228,6 +247,24 @@ void * nextMap(Map * map) {
 
     return NULL;
 }
+
+void * nextKeyMap(Map * map) {
+    assert(map != NULL); // El mapa no puede ser NULL.
+
+    if (map->buckets == NULL) return NULL;
+
+    long i;
+
+    for (i = (map->current + 1); i < map->size; i++) {
+        if (map->buckets[i] != NULL && map->buckets[i]->key != NULL) {
+            map->current = i;
+            return (void *)map->buckets[i]->value;
+        }
+    }
+
+    return NULL;
+}
+
 
 void removeAllMap(Map * map) {
     assert(map != NULL); // El mapa no puede ser NULL.
