@@ -8,6 +8,8 @@
 
 typedef struct tag tag;
 
+void addDefaultTag(Map* tagMap);
+
 void addTag (char * category,Map * tagMap);
 
 void deleteTag (char * tags, Map * tagMap);
@@ -16,7 +18,6 @@ void enterTag (char * tags);
 
 void taglist(Map* catMap);
 
-void newFileTag (char * tags);
 
 void listCleanup(tag* Tag);
 

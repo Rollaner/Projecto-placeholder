@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Map.h"
+#include "functionstag.h"
+#include "list.h"
 
 typedef struct cat cat;
 
@@ -15,11 +17,15 @@ Map* loadCats ();
 
 void catlist(Map* catMap);
 
-void addCat (char * category,Map * catMap);
+void addCat(char * category,Map * catMap);
 
-void deleteCat (char * category, Map * catMap);
+void deleteCat(char * category, Map * catMap);
 
-void enterCat (char * category); /**que es category?*/
+void addFile(char* filename, cat* auxCat);
+
+void loadFile(char* filename, cat* auxCat);
+
+cat* enterCat (char * category,Map* catMap);
 
 void exportcats(Map* catMap);
 

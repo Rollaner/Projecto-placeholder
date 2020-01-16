@@ -68,9 +68,18 @@ void addCat(char * category,Map * catMap) {
     cat* ToAdd = malloc(sizeof(cat));
     ToAdd->fileMap = createMap(stringHash,stringEqual);     // inicializa variables struct cat
     ToAdd->tagMap = createMap(stringHash,stringEqual);
-    insertMap(catMap,category,ToAdd);                       // añadido a mapa global de categorias
+    cat* aux = malloc (sizeof(cat));
+    aux = searchMap(catMap,category);
+    if(aux != NULL){
+        printf("categoria %s ya existe, porfavor intente con otro nombre \n",aux->name);
+        getchar();
+        getchar(); /*porque demonios requiere dos y el otro solo 1?, solo el dios del spaghetti lo sabe*/
+        return;
+    }
     ToAdd->name = calloc(30,sizeof(char));                  // nombre para presentar categoria
     ToAdd->name = category;
+    //addDefaultTag(ToAdd);
+    insertMap(catMap,category,ToAdd);                       // añadido a mapa global de categorias
     return;     /** falta revisar que no se dupliquen un if*/
 }
 
@@ -119,9 +128,14 @@ void deleteCat(char * category, Map * catMap){
     return;
 }
 
-void enterCat(char * category) {
+cat* enterCat(char * category,Map* catMap) {
     system("cls");
-
+    cat* aux = malloc(sizeof(cat));
+    aux = searchMap(catMap,category);
+    if(aux == NULL){
+        printf("Categoria no encontrada, revise datos ingresados \n");
+        return NULL;
+    }
     printf("Ha ingresado exitosamente a la categoria %s \n\n", category);
     printf("Presione ENTER para continuar:\n");
 
@@ -129,9 +143,65 @@ void enterCat(char * category) {
     getchar();
 
     system("cls");
+    return aux;
+}
 
+void addFile(char* filename, cat* auxCat){
+    printf("Ingrese nombre etiqueta, ingrese enter para saltar este paso\n");
+    char* tag = calloc(30,sizeof(char));
+    fgets(tag,10,stdin);
+    fgets(tag,30,stdin);
+    if ((strlen(tag) > 0) && (tag[strlen (tag) - 1] == '\n'))
+        tag[strlen (tag) - 1] = '\0';
+    if(strcmp(tag,"\0") == 0){
+       strcpy(tag,"untagged");
+    }
+    //auxtag se actualiza immediatamente a lo que ingrese el usuario o "untagged"
+    //tag* auxtag //El linker no funciona, hay que revisar porque antes de continuar. esta variable se usa para acceder a la lista enlazada de la tag en cuestion
+    /** if(auxtag == NULL){
+        auxtag->file_list = list_create_empty;
+        auxtag->name = malloc(30,sizeof(char));
+        insertMap(auxCat->tagMap, tag, auxtag);*/
+    char* auxDupped = calloc(30, sizeof(char));
+    auxDupped = searchMap(auxCat->fileMap,filename);
+    if(auxDupped != NULL){
+        printf("Archivo ya existe, desea añadirlo a otra etiqueta? y/n");
+        char confirm;
+        scanf("%c", &confirm);
+        if(confirm == 'y'){
+            if(strcmp(tag,"untagged") == 0){
+                printf("Ingrese una tag valida anted de proceder.");
+                return;
+            }
+            //auxtag //acceder a la tag hacer operaciones de lista.
+        }
+        return;
+    }else{
+        insertMap(auxCat->fileMap,filename,filename);
+        //auxtag acceder operaciones de lista.
+        char* fileCheck = calloc(30,sizeof(char));
+        fileCheck = searchMap(auxCat->fileMap,filename);
+        if(fileCheck == NULL)
+            printf("welp");
+        else
+        printf("archivo %s ingresado presione una tecla para continuar\n",fileCheck);
+        getchar();
+        return;
+    }
+}
 
-    return;
+void loadFile(char* filename, cat* auxCat){
+    char* aux = calloc(30,sizeof(char));
+    aux = searchMap(auxCat->fileMap,filename);
+    if(aux != NULL){
+        printf("Cargando archivo %s (no en realidad, es solo prueba de concepto) (presione cualquier tecla para continuar)",aux);
+        getchar();
+        return;
+    }else{
+        printf("Archivo no encontrado, intente nuevamente (presione cualquier tecla para proceder)");
+        getchar();
+        return;
+    }
 }
 
 void exportcats(Map* catMap){
@@ -145,13 +215,14 @@ void exportcats(Map* catMap){
         strcat(fileOpener,catExporter->name);
         strcat(fileOpener,"-tags.csv");
         FILE* tagPointer = fopen(fileOpener,"w");
-        /** cositas*/
+        /** cositas (es decir esportar la data)*/
         fclose(tagPointer);
         strcpy(fileOpener,"\0");
         strcat(fileOpener,"Files\\");
         strcat(fileOpener,catExporter->name);
         strcat(fileOpener,"-data.csv");
         FILE* dataPointer = fopen(fileOpener,"w");
+        /** cositas*/
         fclose(dataPointer);
         strcpy(fileOpener,"\0");
         catExporter = nextKeyMap(catMap);

@@ -12,6 +12,7 @@
 int main()
 {
     int op = 0;
+    int op2 = 0;
 
     char* catname = calloc(30,sizeof(char));
     //Map* catMap = createMap(stringHash,stringEqual); /** mapa para categorias*/
@@ -49,77 +50,69 @@ int main()
             if ((strlen(catname) > 0) && (catname[strlen (catname) - 1] == '\n'))
             catname[strlen (catname) - 1] = '\0';
             printf("entrando a categoria %s ", catname);
-            enterCat(catname);
-
-            printf("Estas son las acciones que usted puede realizar: \n"); /** Este es el menu dentro de la categoría*/
-            printf("Ver archivos de la categoria: Ingresar tecla [1].\n");
-            printf("Ver menu de tags: Ingresar tecla [2].\n");
-            printf("Salir al menu principal: Ingresar tecla [3].\n");
-
-
-            while(op != -1){                  /** Menu de tag, usa los valores que entrege la funcion enterCat*/
-                scanf("%d", &op);
-                switch(op){
-                case 1:
-                    system("cls");
-                    printf("case 1");
-                    break;
-                case 2:
-                    system("cls");
-                    printf("Menu de tags\n\n");
-                    printf("Crear nueva tag: Ingrese tecla [1]\n");
-                    printf("Añadir archivo a una tag: Ingrese tecla [2]\n");
-                    printf("Añadir multiples archivos a una tag: Ingrese tecla [3]\n");
-                    printf("Borrar una tag: Ingresar tecla [4]\n");
-                    printf("Mostrar archivos de una tag: Ingresar tecla [5]\n");
-                    printf("Volver al menu de la categoria: Ingresar tecla [6]\n");
-
-                    while(op != -1){
-                        switch(op){
+            cat* auxCat = enterCat(catname,catMap);
+            if (auxCat == NULL){
+                getchar();
+                system("cls");
+                loadmenu();
+                catList(catMap);
+                break;
+            }
+            char* fileName = calloc(30,sizeof(char));
+                    loadcatmenu();
+                    while(op2 != -2){
+                        scanf("%d", &op2);
+                        switch(op2){
                         case 1: //crear nueva tag
 
  //                           system("cls");
  //                           addTag (char * category,Map * tagMap);
-
+                            loadcatmenu();
                             break;
 
                         case 2: //añadir archivo a tag
-
-                            system("cls");
+                            printf("ingrese nombre archivo\n");
+                            fgets(fileName,10,stdin);
+                            fgets(fileName,30,stdin);
+                            if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
+                            fileName[strlen (fileName) - 1] = '\0';
+                            addFile(fileName,auxCat);
+                            loadcatmenu();
                             break;
 
                         case 3: //Añadir multiples archivos a una tag
 
-                            system("cls");
+                            loadcatmenu();
                             break;
 
                         case 4: //Borrar una tag
 
-                            system("cls");
+                            loadcatmenu();
                             break;
 
                         case 5: //Mostrar archivos de una tag
 
-                            system("cls");
+                            loadcatmenu();
                             break;
 
-                        case 6: //Volver al menu de la categoria
-
-                            system("cls");
+                        case 6: // cargar archivo especifico
+                            printf("ingrese nombre archivo\n");
+                            fgets(fileName,10,stdin);
+                            fgets(fileName,30,stdin);
+                            if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
+                            fileName[strlen (fileName) - 1] = '\0';
+                            loadFile(fileName,auxCat);
+                            loadcatmenu();
                             break;
+
+                        case 7: //Volver al menu de la categoria
+                            op2 = -2;
+                            break;
+                            default: printf("Opcion no valida, intente nuevamentente \n");
+                                     loadcatmenu();
+                            continue;
                         }
                     }
-
-                    printf("case 2");
-                    break;
-                case 3:
-                    system("cls");
-                    op = -1;
-                    break;
-                default: printf("Opcion no valida, intente nuevamentente \n");
-                continue;
-                }
-            }
             system("cls");
             loadmenu();
             catList(catMap);
@@ -155,4 +148,19 @@ void loadmenu(){
     printf("Archivo 5. \n");
 
     printf("Lista categorias: \n");
+}
+
+void loadcatmenu(){
+
+                 /** Menu de tag, usa los valores que entrege la funcion enterCat*/
+                system("cls");
+                printf("Menu de tags\n\n");
+                printf("Crear nueva tag: Ingrese tecla [1]\n");
+                printf("Añadir archivo a la categoria: Ingrese tecla [2]\n");
+                printf("Añadir multiples archivos a la categoria: Ingrese tecla [3]\n");
+                printf("Borrar una tag: Ingresar tecla [4]\n");
+                printf("Mostrar archivos de una tag: Ingresar tecla [5]\n");
+                printf("Cargar un archivo especifico [6]\n");
+                printf("Volver al menu de la principal: Ingresar tecla [7]\n");
+
 }

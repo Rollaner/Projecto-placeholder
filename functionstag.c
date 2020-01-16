@@ -10,14 +10,29 @@ struct tag{
     char* nameTag;
 };
 
-void addTag (char * tags,Map * tagMap){
+void addDefaultTag(Map* tagMap){
     tag* ToAdd = malloc(sizeof(tag));
-    ToAdd->fileMap = createMap(stringHash,stringEqual);
-    insertMap(tagMap,tags,ToAdd);
+    ToAdd->file_list = list_create_empty();
     ToAdd->name = calloc(30,sizeof(char));
-    ToAdd->name = tags;
+    strcpy(ToAdd->name,"untagged");
+    insertMap(tagMap,"untagged",ToAdd);
     return;
 
+}
+
+void addTag (char * tags,Map * tagMap){
+    tag* ToAdd = malloc(sizeof(tag));
+    ToAdd->file_list = list_create_empty();
+    tag* aux = malloc(sizeof(tag));
+    aux = searchMap(tagMap,tags);
+    if(aux != NULL){
+        printf("tag %s ya existe, porfavor intente con otro nombre \n",aux->name);
+        return;
+    }
+    ToAdd->name = calloc(30,sizeof(char));
+    strcpy(ToAdd->name,tags);
+    insertMap(tagMap,tags,ToAdd);
+    return;
 }
 
 void deleteTag (char * name, Map * tagMap){
