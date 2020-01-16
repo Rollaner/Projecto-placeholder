@@ -77,7 +77,7 @@ void taglist (Map* tagMap){
 void listCleanup(tag* Tag){
     char* aux = calloc(30, sizeof(char));
     aux = list_first(Tag->file_list);
-    while(aux = NULL){
+    while(aux != NULL){
         free(aux);
         aux = list_next(Tag->file_list);
         }

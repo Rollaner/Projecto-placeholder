@@ -200,6 +200,28 @@ void loadFile(char* filename, cat* auxCat){
     }else{
         printf("Archivo no encontrado, intente nuevamente (presione cualquier tecla para proceder)");
         getchar();
+        system("cls");
+        return;
+    }
+}
+
+void deleteFile(char* filename, cat* auxCat){
+    char* aux = calloc(30,sizeof(char));
+    char confirm = 'n';
+    aux = searchMap(auxCat->fileMap,filename);
+    if(aux != NULL){
+        printf("Esta accion es permanente, desea continuar? y/n\n",aux);
+        scanf("%c", &confirm);
+        if (confirm == 'y'){
+            eraseKeyMap(auxCat->fileMap,filename);
+            //free(aux); lo rompe por algun motivo.
+            printf("Archivo eliminado\n");
+            getchar();
+        }
+        return;
+    }else{
+        printf("Archivo no encontrado, revise datos ingresados (presione cualquier tecla para proceder)\n");
+        getchar();
         return;
     }
 }

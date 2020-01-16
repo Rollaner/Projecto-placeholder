@@ -25,6 +25,8 @@ void addFile(char* filename, cat* auxCat);
 
 void loadFile(char* filename, cat* auxCat);
 
+void deleteFile(char* filename, cat* auxCat);
+
 cat* enterCat (char * category,Map* catMap);
 
 void exportcats(Map* catMap);

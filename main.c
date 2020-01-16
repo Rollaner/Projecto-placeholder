@@ -9,6 +9,42 @@
 #include "queue.h"
 
 
+void loadmenu(){
+    printf("                Bienvenido a\n\n"); //Portada del programa
+    printf("                PLACEHOLDER \n\n\n\n");
+
+    printf("Ingrese numero de la operacion deseada: \n"); /**Menu principal del programa*/
+    printf("1) Agregar categoria \n");
+    printf("2) Eliminar categoria \n");
+    printf("3) Ingresar a categoria \n");
+    printf("4) Salir \n\n");
+
+    printf("Tus 5 archivos mas recientes son: \n"); /** Solo como prueba de concepto */
+    printf("Archivo 1. ");
+    printf("Archivo 2. ");
+    printf("Archivo 3. ");
+    printf("Archivo 4. ");
+    printf("Archivo 5. \n");
+
+    printf("Lista categorias: \n");
+}
+
+void loadcatmenu(){
+
+                 /** Menu de tag, usa los valores que entrege la funcion enterCat*/
+                system("cls");
+                printf("Menu de tags\n\n");
+                printf("Crear nueva tag: Ingrese tecla [1]\n");
+                printf("Añadir archivo a la categoria: Ingrese tecla [2]\n");
+                printf("Añadir multiples archivos a la categoria: Ingrese tecla [3]\n");
+                printf("Borrar una tag: Ingresar tecla [4]\n");
+                printf("Mostrar archivos de una tag: Ingresar tecla [5]\n");
+                printf("Cargar un archivo especifico [6]\n");
+                printf("Eliminar un archivo especufico [7]\n");
+                printf("Volver al menu de la principal: Ingresar tecla [8]\n");
+
+}
+
 int main()
 {
     int op = 0;
@@ -105,7 +141,17 @@ int main()
                             loadcatmenu();
                             break;
 
-                        case 7: //Volver al menu de la categoria
+                        case 7:
+                            printf("ingrese nombre archivo\n");
+                            fgets(fileName,10,stdin);
+                            fgets(fileName,30,stdin);
+                            if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
+                            fileName[strlen (fileName) - 1] = '\0';
+                            deleteFile(fileName,auxCat);
+                            loadcatmenu();
+                            break;
+
+                        case 8: //Volver al menu de la categoria
                             op2 = -2;
                             break;
                             default: printf("Opcion no valida, intente nuevamentente \n");
@@ -128,39 +174,4 @@ int main()
         }
     }
     return 0;
-}
-
-void loadmenu(){
-    printf("                Bienvenido a\n\n"); //Portada del programa
-    printf("                PLACEHOLDER \n\n\n\n");
-
-    printf("Ingrese numero de la operacion deseada: \n"); /**Menu principal del programa*/
-    printf("1) Agregar categoria \n");
-    printf("2) Eliminar categoria \n");
-    printf("3) Ingresar a categoria \n");
-    printf("4) Salir \n\n");
-
-    printf("Tus 5 archivos mas recientes son: \n"); /** Solo como prueba de concepto */
-    printf("Archivo 1. ");
-    printf("Archivo 2. ");
-    printf("Archivo 3. ");
-    printf("Archivo 4. ");
-    printf("Archivo 5. \n");
-
-    printf("Lista categorias: \n");
-}
-
-void loadcatmenu(){
-
-                 /** Menu de tag, usa los valores que entrege la funcion enterCat*/
-                system("cls");
-                printf("Menu de tags\n\n");
-                printf("Crear nueva tag: Ingrese tecla [1]\n");
-                printf("Añadir archivo a la categoria: Ingrese tecla [2]\n");
-                printf("Añadir multiples archivos a la categoria: Ingrese tecla [3]\n");
-                printf("Borrar una tag: Ingresar tecla [4]\n");
-                printf("Mostrar archivos de una tag: Ingresar tecla [5]\n");
-                printf("Cargar un archivo especifico [6]\n");
-                printf("Volver al menu de la principal: Ingresar tecla [7]\n");
-
 }
