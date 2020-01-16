@@ -120,7 +120,6 @@ void deleteCat(char * category, Map * catMap){
 }
 
 void enterCat(char * category) {
-
     system("cls");
 
     printf("Ha ingresado exitosamente a la categoria %s \n\n", category);
@@ -133,4 +132,30 @@ void enterCat(char * category) {
 
 
     return;
+}
+
+void exportcats(Map* catMap){
+    FILE* fp = fopen("Files\\Categories-OUTPUT.csv","w");
+    cat* catExporter = malloc(sizeof(cat));
+    catExporter = firstKeyMap(catMap);
+    while(catExporter != NULL){
+        fprintf(fp,"%s,%s-tags,%s-data\n",catExporter->name,catExporter->name,catExporter->name);
+        char * fileOpener = calloc(100,sizeof(char));
+        strcat(fileOpener,"Files\\");
+        strcat(fileOpener,catExporter->name);
+        strcat(fileOpener,"-tags.csv");
+        FILE* tagPointer = fopen(fileOpener,"w");
+        /** cositas*/
+        fclose(tagPointer);
+        strcpy(fileOpener,"\0");
+        strcat(fileOpener,"Files\\");
+        strcat(fileOpener,catExporter->name);
+        strcat(fileOpener,"-data.csv");
+        FILE* dataPointer = fopen(fileOpener,"w");
+        fclose(dataPointer);
+        strcpy(fileOpener,"\0");
+        catExporter = nextKeyMap(catMap);
+    }
+    //FILE* tagPointer =
+    //FIlE* dataPointer =
 }

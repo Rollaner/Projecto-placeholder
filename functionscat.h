@@ -21,5 +21,6 @@ void deleteCat (char * category, Map * catMap);
 
 void enterCat (char * category); /**que es category?*/
 
+void exportcats(Map* catMap);
 
 #endif // // functionscat_h //

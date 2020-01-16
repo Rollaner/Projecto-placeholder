@@ -126,6 +126,7 @@ int main()
             break;
 
         case 4: system("cls"); /**Con esta se sale del programa*/
+                exportcats(catMap);
                 printf ("\n\n\n\n\n                HASTA PRONTO!!!\n\n\n\n");
                 exit(0);
 

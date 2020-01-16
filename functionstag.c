@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "functionscat.h"
+#include "functionstag.h"
 
 struct tag{
     list* file_list;
