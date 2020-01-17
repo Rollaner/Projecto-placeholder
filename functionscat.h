@@ -23,7 +23,7 @@ void deleteCat(char * category, Map * catMap);
 
 void addFile(char* filename, cat* auxCat);
 
-void loadFile(char* filename, cat* auxCat);
+void loadFile(char* filename, cat* auxCat, list* recents);
 
 void deleteFile(char* filename, cat* auxCat);
 

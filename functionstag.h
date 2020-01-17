@@ -8,6 +8,8 @@
 
 typedef struct tag tag;
 
+typedef struct fileStruct fileStruct;
+
 void addDefaultTag(Map* tagMap);
 
 void addTag (char * category,Map * tagMap);

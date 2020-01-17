@@ -10,11 +10,16 @@ struct tag{
     char* nameTag;
 };
 
+struct fileStruct{
+    Map* file_tagmap;
+    char* name;
+};
+
 void addDefaultTag(Map* tagMap){
     tag* ToAdd = malloc(sizeof(tag));
     ToAdd->file_list = list_create_empty();
-    ToAdd->name = calloc(30,sizeof(char));
-    strcpy(ToAdd->name,"untagged");
+    ToAdd->nameTag = calloc(30,sizeof(char));
+    strcpy(ToAdd->nameTag,"untagged");
     insertMap(tagMap,"untagged",ToAdd);
     return;
 
@@ -26,11 +31,11 @@ void addTag (char * tags,Map * tagMap){
     tag* aux = malloc(sizeof(tag));
     aux = searchMap(tagMap,tags);
     if(aux != NULL){
-        printf("tag %s ya existe, porfavor intente con otro nombre \n",aux->name);
+        printf("tag %s ya existe, porfavor intente con otro nombre \n",aux->nameTag);
         return;
     }
-    ToAdd->name = calloc(30,sizeof(char));
-    strcpy(ToAdd->name,tags);
+    ToAdd->nameTag = calloc(30,sizeof(char));
+    strcpy(ToAdd->nameTag,tags);
     insertMap(tagMap,tags,ToAdd);
     return;
 }
@@ -38,24 +43,20 @@ void addTag (char * tags,Map * tagMap){
 void deleteTag (char * name, Map * tagMap){
 
     tag* currentTag = searchMap(tagMap, name);
-
+    tag* Untagged = searchMap(tagMap, "untagged");
+    fileStruct* fileAux = list_pop_front(currentTag->file_list);
     if(currentTag == NULL){
      printf("Error de datos\n");
     }
     else{
-        tag* currentTag = list_pop_front(currentTag->tagMap);
-        catMap* currentCat = searchMap(catMap, currentCat->catName);
-        while (currentTag != NULL){
-            eraseKeyMap(currentCat->tagMap->currentTag->name);
+        //while(fileAux != NULL){
+            //if()
 
-            if(strcmp(currentTag->tagMap,currentCat->name)!= 0)
-                eraseKeyMap(tagMap,currentTag->name);
-                currentTag = list_pop_front(currentTag->tagMap);
-            }
-
-        eraseKeyMap(catMap,currentCat->name);
+        //}
+        eraseKeyMap(tagMap,name);
+        free(currentTag);
+        currentTag = NULL;
     }
-
 }
 
 void enterTag (char * tags);
@@ -63,12 +64,12 @@ void enterTag (char * tags);
 void taglist (Map* tagMap){
 
     tag* tempTag = firstMap(tagMap);
-    printf("%s  \n",tempTag->name);
+    printf("%s  \n",tempTag->nameTag);
     while(tempTag!= NULL){
         tempTag = nextMap(tagMap);
         if(tempTag == NULL)
             break;
-        printf("%s \n",tempTag->name);
+        printf("%s \n",tempTag->nameTag);
     }
 
 }
