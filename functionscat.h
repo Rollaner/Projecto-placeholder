@@ -29,6 +29,8 @@ void deleteFile(char* filename, cat* auxCat);
 
 cat* enterCat (char * category,Map* catMap);
 
+cat* findLatest(Map* catMap, char* fileName);
+
 void exportcats(Map* catMap);
 
 #endif // // functionscat_h //
