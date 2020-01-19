@@ -41,7 +41,7 @@ int main()
     int switchop = 0;
     char op2 = 0;
     int switchop2 = 0;
-    int i;
+    //int i;
     char buffer;
     char* catname = calloc(30,sizeof(char));
     //Map* catMap = createMap(stringHash,stringEqual); /** mapa para categorias*/
@@ -151,8 +151,9 @@ int main()
                             printf("ingrese nombre tag\n");
                             fgets(tagName,10,stdin);
                             fgets(tagName,30,stdin);
-                            if ((strlen(tagName) > 0) && (tagName[strlen (tagName) - 1] == '\n'))
-                            fileName[strlen (tagName) - 1] = '\0';
+                            if ((strlen(tagName) > 0) && (tagName[strlen(tagName) - 1] == '\n')){
+                                tagName[strlen(tagName) - 1] = '\0';
+                            }
  //                           system("cls");
                             deleteTag (tagName,auxCat);
                             op2 = '0';
@@ -165,8 +166,8 @@ int main()
                             fgets(tagName,10,stdin);
                             fgets(tagName,30,stdin);
                             if ((strlen(tagName) > 0) && (tagName[strlen (tagName) - 1] == '\n'))
-                            fileName[strlen (tagName) - 1] = '\0';
-                            //showalltag(tagName,auxCat);
+                                tagName[strlen (tagName) - 1] = '\0';
+                            taglist(tagName,auxCat);
                             op2 = '0';
                             scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
@@ -216,7 +217,7 @@ int main()
 
         case 4: if(recentList(latest)){
                     printf("Ingrese nombre archivo\n");
-                    char* recentFile = calloc(30,sizeof(char));
+                    //char* recentFile = calloc(30,sizeof(char));
                     fgets(fileName,10,stdin);
                     fgets(fileName,30,stdin);
                     if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))

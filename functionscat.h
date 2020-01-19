@@ -31,9 +31,15 @@ cat* enterCat (char * category,Map* catMap);
 
 void addTag (char * tags,cat* category);
 
+//void cat_taglist (cat* auxCat);
+
+void taglist (char* tagName, cat* auxCat);
+
 void deleteTag (char * name, cat* category);
 
 cat* findLatest(Map* catMap, char* fileName);
+
+int recentList(list* latest);
 
 void exportcats(Map* catMap);
 

@@ -8,8 +8,6 @@
 #include "Map.h"
 #include "list.h"
 
-void importData(Map* catMap, Map* tagMap, Map* albumMap);
-
 long long stringHash(const void * key) {
     long long hash = 5381;
 
@@ -60,7 +58,7 @@ Map* loadCats(){
     tag* auxTag = malloc(sizeof(tag));
     while(fgets(String,100,Catfile) != NULL){
         cat* catLoader = malloc(sizeof(cat));       /** inicializa variables de la categoria */
-        catLoader->name = calloc(30, sizeof(30,sizeof(char)));
+        catLoader->name = calloc(30, sizeof(char));
         catLoader->fileMap = createMap(stringHash,stringEqual);
         catLoader->tagMap = createMap(stringHash,stringEqual);
         strcpy(catLoader->name,get_csv_field(String,1));
@@ -114,6 +112,35 @@ void addCat(char * category,Map * catMap) {
     strcpy(ToAdd->name,category);
     addDefaultTag(ToAdd->tagMap);
     insertMap(catMap,category,ToAdd);                       // añadido a mapa global de categorias
+    return;
+}
+
+/*void cat_taglist (cat* auxCat){
+    tag* tempTag = firstMap(auxCat->tagMap);
+    printf("%s  \n",tempTag->nameTag);
+    while(tempTag!= NULL){
+        tempTag = nextMap(tagMap);
+        if(tempTag == NULL)
+            break;
+        printf("%s \n",tempTag->nameTag);
+    }
+
+}*/
+
+void taglist (char* tagName, cat* auxCat){
+    tag* auxTag = searchMap(auxCat->tagMap,tagName);
+    int i = 1;
+    if(auxTag == NULL){
+     printf("Tag ingresada no existe, revise datos\n");
+     return;
+    }
+    fileStruct* auxFile = list_first(auxTag->file_list);
+    while(auxFile != NULL){
+        printf("%d) %s \n", i, auxFile->name);
+        i++;
+        auxFile = list_next(auxTag->file_list);
+    }
+    printf("Total de archivos con etiqueta %s: %d\n",auxTag->nameTag,i-1);
     return;
 }
 
@@ -263,7 +290,7 @@ void addFile(char* filename, cat* auxCat){
     fileStruct* auxDupped = calloc(30, sizeof(fileStruct));
     auxDupped = searchMap(auxCat->fileMap,filename); //revisa que el archivo no exista, en caso de existir, toma su valor para modificarlo
     if(auxDupped != NULL){
-        printf("Archivo ya existe, desea añadirlo a otra etiqueta? y/n");
+        printf("Archivo ya existe, desea agregarlo a otra etiqueta? y/n");
         char confirm = 'n';
         scanf("%c", &confirm);
         confirm = tolower(confirm);
@@ -341,7 +368,7 @@ void deleteFile(char* filename, cat* auxCat){
     char confirm = 'n';
     aux = searchMap(auxCat->fileMap,filename);
     if(aux != NULL){
-        printf("Esta accion es permanente, desea continuar? y/n\n",aux);
+        printf("Esta accion es permanente, desea continuar? y/n\n");
         scanf("%c", &confirm);
         if (confirm == 'y'){
             eraseKeyMap(auxCat->fileMap,filename);
@@ -385,7 +412,7 @@ void exportcats(Map* catMap){
             tagListAux = firstMap(fileAux->file_tagmap);
             while(tagListAux!= NULL){
                 fprintf(dataPointer,"%s,",tagListAux->nameTag);
-                nextMap(fileAux->file_tagmap);
+                tagListAux = nextMap(fileAux->file_tagmap);
             }
             fprintf(dataPointer,"\n");
             fileAux = nextMap(catExporter->fileMap);

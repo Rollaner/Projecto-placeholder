@@ -28,19 +28,6 @@ void addDefaultTag(Map* tagMap){
 
 void enterTag (char * tags);
 
-void taglist (Map* tagMap){
-
-    tag* tempTag = firstMap(tagMap);
-    printf("%s  \n",tempTag->nameTag);
-    while(tempTag!= NULL){
-        tempTag = nextMap(tagMap);
-        if(tempTag == NULL)
-            break;
-        printf("%s \n",tempTag->nameTag);
-    }
-
-}
-
 
 void listCleanup(tag* Tag){
     char* aux = calloc(30, sizeof(char));

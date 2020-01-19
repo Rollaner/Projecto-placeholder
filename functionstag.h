@@ -14,9 +14,6 @@ void addDefaultTag(Map* tagMap);
 
 void enterTag (char * tags);
 
-void taglist(Map* catMap);
-
-
 void listCleanup(tag* Tag);
 
 
