@@ -50,11 +50,14 @@ struct cat{
 Map* loadCats(){
     Map* CatMap = createMap(stringHash,stringEqual);
     FILE* Catfile = fopen("Files\\Categories.csv","r");
+    int i = 2;
     char* dataFile = calloc(50,sizeof(char));
     char* tagFile = calloc(50,sizeof(char));
     char* String = calloc(100,sizeof(char));    //<----string de datos de la categoria
     char* dataStream = calloc(150,sizeof(char));
     char* tagStream = calloc(30,sizeof(char));
+    char* dataTagStream = calloc(30,sizeof(char));
+    tag* auxTag = malloc(sizeof(tag));
     while(fgets(String,100,Catfile) != NULL){
         cat* catLoader = malloc(sizeof(cat));       /** inicializa variables de la categoria */
         catLoader->name = calloc(30, sizeof(30,sizeof(char)));
@@ -62,21 +65,8 @@ Map* loadCats(){
         catLoader->tagMap = createMap(stringHash,stringEqual);
         strcpy(catLoader->name,get_csv_field(String,1));
         insertMap(CatMap,catLoader->name,catLoader);
-        strcat(dataFile,"Files\\");                 //ambos strcat son para
-        strcat(dataFile,get_csv_field(String,3));  //compilar la string para ubicar el archivo
-        FILE* dataLoader = fopen(dataFile,"r");
-        while(fgets(dataStream,150,dataLoader) != NULL){
-            fileStruct* fileLoader = malloc(sizeof(fileStruct));        /**inicializa variables de archivo*/
-            fileLoader->file_tagmap = createMap(stringHash,stringEqual);
-            fileLoader->name = calloc(30,sizeof(char));
-            strcpy(fileLoader->name,get_csv_field(dataStream,1));
-            //falta, cargar tags de archivo i de csv variable, como compensar por eso?
-            insertMap(catLoader->fileMap,fileLoader->name,fileLoader);
-        }
-        fclose(dataLoader);
-        strcpy(dataFile,"\0"); //resetea string para ubicar archivo
         strcat(tagFile,"Files\\");
-        strcat(tagFile,get_csv_field(String,3));
+        strcat(tagFile,get_csv_field(String,2));
         FILE* tagLoader = fopen(tagFile,"r");
         while(fgets(tagStream,30,tagLoader)!= NULL){
             tag* tagStruct_loader = malloc(sizeof(tag));
@@ -86,6 +76,24 @@ Map* loadCats(){
         }
         fclose(tagLoader);
         strcpy(tagFile,"\0");
+        strcat(dataFile,"Files\\");                 //ambos strcat son para
+        strcat(dataFile,get_csv_field(String,3));  //compilar la string para ubicar el archivo
+        FILE* dataLoader = fopen(dataFile,"r");
+        while(fgets(dataStream,150,dataLoader) != NULL){
+            fileStruct* fileLoader = malloc(sizeof(fileStruct));        /**inicializa variables de archivo*/
+            fileLoader->file_tagmap = createMap(stringHash,stringEqual);
+            fileLoader->name = calloc(30,sizeof(char));
+            strcpy(fileLoader->name,get_csv_field(dataStream,1));
+            for(i= 2; get_csv_field(dataStream,i) != NULL; i++){
+                strcpy(dataTagStream,get_csv_field(dataStream,i));
+                auxTag = searchMap(catLoader->tagMap,dataTagStream);
+                insertMap(fileLoader->file_tagmap,dataStream,auxTag);
+            }
+            //falta, cargar tags de archivo i de csv variable, como compensar por eso?
+            insertMap(catLoader->fileMap,fileLoader->name,fileLoader);
+        }
+        fclose(dataLoader);
+        strcpy(dataFile,"\0"); //resetea string para ubicar archivo
         //printf("%s \n",catLoader->name);
     }
     return CatMap;
@@ -351,6 +359,8 @@ void exportcats(Map* catMap){
     FILE* fp = fopen("Files\\Categories-OUTPUT.csv","w");
     cat* catExporter = malloc(sizeof(cat));
     fileStruct* fileAux = malloc(sizeof(fileStruct));
+    tag* tagAux = malloc(sizeof(tag));
+    tag* tagListAux = malloc(sizeof(tag));
     catExporter = firstKeyMap(catMap);
     while(catExporter != NULL){
         fprintf(fp,"%s,%s-tags,%s-data\n",catExporter->name,catExporter->name,catExporter->name);
@@ -359,7 +369,11 @@ void exportcats(Map* catMap){
         strcat(fileOpener,catExporter->name);
         strcat(fileOpener,"-tags.csv");
         FILE* tagPointer = fopen(fileOpener,"w");
-        /** cositas (es decir esportar la data)*/
+        tagAux = firstMap(catExporter->tagMap);
+        while(tagAux!=NULL){
+            fprintf(tagPointer,"%s,\n",tagAux->nameTag);
+            tagAux = nextMap(catExporter->tagMap);
+        }
         fclose(tagPointer);
         strcpy(fileOpener,"\0");
         strcat(fileOpener,"Files\\");
@@ -368,7 +382,13 @@ void exportcats(Map* catMap){
         FILE* dataPointer = fopen(fileOpener,"w");
         fileAux = firstMap(catExporter->fileMap);
         while(fileAux!=NULL){
-            fprintf(dataPointer,"%s,\n",fileAux->name);
+            fprintf(dataPointer,"%s,",fileAux->name);
+            tagListAux = firstMap(fileAux->file_tagmap);
+            while(tagListAux!= NULL){
+                fprintf(dataPointer,"%s,",tagListAux->nameTag);
+                nextMap(fileAux->file_tagmap);
+            }
+            fprintf(dataPointer,"\n");
             fileAux = nextMap(catExporter->fileMap);
         }
         fclose(dataPointer);
