@@ -23,7 +23,7 @@ void loadcatmenu(){
 
                  /** Menu de tag, usa los valores que entrege la funcion enterCat*/
                 system("cls");
-                printf("Menu de tags\n\n");
+                printf("Menu de categoria\n\n");
                 printf("Crear nueva tag: Ingrese tecla [1]\n");
                 printf("Agregar archivo a la categoria: Ingrese tecla [2]\n");
                 printf("Agregar multiples archivos a la categoria: Ingrese tecla [3]\n");
@@ -109,20 +109,23 @@ int main()
                         scanf("%c", &op2);
                         if(isalpha(op2)||(isspace(op2))){
                             while(isalpha(op2)||(isspace(op2))){
-                                printf("Entrada invalida, porfavor ingrese un numero");
+                                printf("Entrada invalida, porfavor ingrese un numero \n");
                                 scanf("%c", &op2);
                             }
                         }
                         switchop2 = op2 - '0';
                         switch(switchop2){
                         case 1: //crear nueva tag
-                              printf("ingrese nombre tag\n");
+                            printf("ingrese nombre tag\n");
                             fgets(tagName,10,stdin);
                             fgets(tagName,30,stdin);
-                            if ((strlen(tagName) > 0) && (tagName[strlen (tagName) - 1] == '\n'))
-                            fileName[strlen (tagName) - 1] = '\0';
- //                           system("cls");
+                            if ((strlen(tagName) > 0) && (tagName[strlen (tagName) - 1] == '\n')){
+                                tagName[strlen (tagName) - 1] = '\0';
+                            }
+ //                         system("cls");
                             addTag (tagName,auxCat);
+                            op2 = '0';
+                            scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
                             break;
 
@@ -133,21 +136,39 @@ int main()
                             if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
                             fileName[strlen (fileName) - 1] = '\0';
                             addFile(fileName,auxCat);
+                            op2 = '0';
+                            scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
                             break;
 
                         case 3: //Añadir multiples archivos a una tag
-
+                            op2 = '0';
+                            scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
                             break;
 
                         case 4: //Borrar una tag
-
+                            printf("ingrese nombre tag\n");
+                            fgets(tagName,10,stdin);
+                            fgets(tagName,30,stdin);
+                            if ((strlen(tagName) > 0) && (tagName[strlen (tagName) - 1] == '\n'))
+                            fileName[strlen (tagName) - 1] = '\0';
+ //                           system("cls");
+                            deleteTag (tagName,auxCat);
+                            op2 = '0';
+                            scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
                             break;
 
                         case 5: //Mostrar archivos de una tag
-
+                            printf("ingrese nombre tag\n");
+                            fgets(tagName,10,stdin);
+                            fgets(tagName,30,stdin);
+                            if ((strlen(tagName) > 0) && (tagName[strlen (tagName) - 1] == '\n'))
+                            fileName[strlen (tagName) - 1] = '\0';
+                            //showalltag(tagName,auxCat);
+                            op2 = '0';
+                            scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
                             break;
 
@@ -158,6 +179,8 @@ int main()
                             if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
                             fileName[strlen (fileName) - 1] = '\0';
                             loadFile(fileName,auxCat,latest);
+                            op2 = '0';
+                            scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
                             break;
 
@@ -168,6 +191,8 @@ int main()
                             if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
                             fileName[strlen (fileName) - 1] = '\0';
                             deleteFile(fileName,auxCat);
+                            op2 = '0';
+                            scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
                             break;
 
@@ -175,7 +200,8 @@ int main()
                             switchop2 = -2;
                             break;
                             default: printf("Opcion no valida, intente nuevamentente \n");
-                                     getchar();
+                                     op2 = '0';
+                                     scanf("%c", &buffer); //elimina basura
                                      loadcatmenu();
                             continue;
                         }

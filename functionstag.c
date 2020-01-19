@@ -26,25 +26,6 @@ void addDefaultTag(Map* tagMap){
 }
 
 
-void deleteTag (char * name, Map * tagMap){
-
-    tag* currentTag = searchMap(tagMap, name);
-    tag* Untagged = searchMap(tagMap, "untagged");
-    fileStruct* fileAux = list_pop_front(currentTag->file_list);
-    if(currentTag == NULL){
-     printf("Error de datos\n");
-    }
-    else{
-        //while(fileAux != NULL){
-            //if()
-
-        //}
-        eraseKeyMap(tagMap,name);
-        free(currentTag);
-        currentTag = NULL;
-    }
-}
-
 void enterTag (char * tags);
 
 void taglist (Map* tagMap){

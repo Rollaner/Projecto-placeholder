@@ -2,27 +2,52 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4410" topLine="96" />
-		</Cursor>
-		<Folding>
-			<Collapse line="21" />
-		</Folding>
-	</File>
-	<File name="list.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4227" topLine="173" />
-		</Cursor>
-	</File>
 	<File name="functionstag.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="242" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="functionscat.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="724" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="functionstag.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="504" topLine="15" />
+		</Cursor>
+		<Folding>
+			<Collapse line="17" />
+		</Folding>
+	</File>
+	<File name="Map.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1191" topLine="134" />
+		</Cursor>
+	</File>
 	<File name="list.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="45" />
+			<Cursor1 position="0" topLine="65" />
+		</Cursor>
+	</File>
+	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5089" topLine="107" />
+		</Cursor>
+	</File>
+	<File name="functionscat.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6621" topLine="144" />
+		</Cursor>
+		<Folding>
+			<Collapse line="31" />
+			<Collapse line="43" />
+			<Collapse line="164" />
+		</Folding>
+	</File>
+	<File name="list.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4227" topLine="185" />
 		</Cursor>
 	</File>
 	<File name="Map.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -32,38 +57,6 @@
 		<Folding>
 			<Collapse line="54" />
 			<Collapse line="67" />
-		</Folding>
-	</File>
-	<File name="Map.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1191" topLine="134" />
-		</Cursor>
-	</File>
-	<File name="functionscat.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="636" topLine="10" />
-		</Cursor>
-	</File>
-	<File name="functionscat.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6554" topLine="147" />
-		</Cursor>
-		<Folding>
-			<Collapse line="31" />
-			<Collapse line="43" />
-			<Collapse line="164" />
-			<Collapse line="211" />
-			<Collapse line="283" />
-			<Collapse line="327" />
-		</Folding>
-	</File>
-	<File name="functionstag.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="504" topLine="15" />
-		</Cursor>
-		<Folding>
-			<Collapse line="17" />
-			<Collapse line="49" />
 		</Folding>
 	</File>
 </CodeBlocks_layout_file>

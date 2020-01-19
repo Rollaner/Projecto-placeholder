@@ -31,6 +31,8 @@ cat* enterCat (char * category,Map* catMap);
 
 void addTag (char * tags,cat* category);
 
+void deleteTag (char * name, cat* category);
+
 cat* findLatest(Map* catMap, char* fileName);
 
 void exportcats(Map* catMap);

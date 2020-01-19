@@ -187,17 +187,44 @@ void addTag (char * tags,cat* category){
     aux = searchMap(category->tagMap,tags);
     if(aux != NULL){
         printf("tag %s ya existe, porfavor intente con otro nombre \n",aux->nameTag);
-        getchar();
         return;
     }
     ToAdd->nameTag = calloc(30,sizeof(char));
     strcpy(ToAdd->nameTag,tags);
     insertMap(category->tagMap,tags,ToAdd);
     printf("tag '%s' agregada exitosamente!, presione enter para continuar", ToAdd->nameTag);
-    getchar();
     return;
 }
 
+
+void deleteTag (char * name, cat* category){
+
+    tag* currentTag = searchMap(category->tagMap, name);
+    tag* Untagged = searchMap(category->tagMap, "untagged");
+    if(currentTag == NULL){
+        printf("Tag no existe, revise datos ingresados\n");
+        return;
+    }
+    else{
+        tag* tagCleaner = malloc(sizeof(tag));
+        fileStruct* fileAux = list_pop_front(currentTag->file_list);
+        while(fileAux != NULL){
+            tagCleaner = eraseKeyMap(fileAux->file_tagmap,name);
+            free(tagCleaner);
+            tagCleaner = NULL;
+            if(emptyMap(fileAux->file_tagmap)){
+                list_push_back(Untagged->file_list,fileAux);
+                insertMap(fileAux->file_tagmap,"untagged",Untagged);
+            }
+            fileAux = list_pop_front(currentTag->file_list);
+        }
+        eraseKeyMap(category->tagMap,name);
+        free(currentTag);
+        currentTag = NULL;
+    }
+    printf("Operacion exitosa \n");
+    return;
+}
 
 cat* findLatest(Map* catMap, char* fileName){
     cat* recentCat = malloc(sizeof(cat));
@@ -258,7 +285,6 @@ void addFile(char* filename, cat* auxCat){
             printf("Operation Failed, return to menu");
         else
         printf("archivo %s ingresado presione una tecla para continuar\n",fileCheck->name);
-        getchar();
         return;
     }
 }
@@ -296,11 +322,9 @@ void loadFile(char* filename, cat* auxCat, list* recents){
             recent_duplicate = list_next(recents);
         }
         list_push_front(recents,aux);
-        getchar();
         return;
     }else{
         printf("Archivo no encontrado, intente nuevamente (presione enter para proceder)");
-        getchar();
         return;
     }
 }
@@ -315,12 +339,10 @@ void deleteFile(char* filename, cat* auxCat){
         if (confirm == 'y'){
             eraseKeyMap(auxCat->fileMap,filename);
             printf("Archivo eliminado\n");
-            getchar();
         }
         return;
     }else{
         printf("Archivo no encontrado, revise datos ingresados (presione cualquier tecla para proceder)\n");
-        getchar();
         return;
     }
 }
