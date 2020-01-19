@@ -107,12 +107,11 @@ void addCat(char * category,Map * catMap) {
     aux = searchMap(catMap,category);
     if(aux != NULL){
         printf("categoria %s ya existe, porfavor intente con otro nombre \n",aux->name);
-        getchar();
         getchar(); /*requiere dos*/
         return;
     }
     ToAdd->name = calloc(30,sizeof(char));                  // nombre para presentar categoria
-    ToAdd->name = category;
+    strcpy(ToAdd->name,category);
     addDefaultTag(ToAdd->tagMap);
     insertMap(catMap,category,ToAdd);                       // añadido a mapa global de categorias
     return;
