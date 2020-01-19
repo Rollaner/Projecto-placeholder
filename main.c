@@ -103,11 +103,12 @@ int main()
                 break;
             }
             char* fileName = calloc(30,sizeof(char));
+            char* tagName = calloc(30,sizeof(char));
                     loadcatmenu();
                     while(switchop2 != -2){
                         scanf("%c", &op2);
-                        if(isalpha(op2)){
-                            while(isalpha(op2)){
+                        if(isalpha(op2)||(isspace(op2))){
+                            while(isalpha(op2)||(isspace(op2))){
                                 printf("Entrada invalida, porfavor ingrese un numero");
                                 scanf("%c", &op2);
                             }
@@ -115,9 +116,13 @@ int main()
                         switchop2 = op2 - '0';
                         switch(switchop2){
                         case 1: //crear nueva tag
-
+                              printf("ingrese nombre tag\n");
+                            fgets(tagName,10,stdin);
+                            fgets(tagName,30,stdin);
+                            if ((strlen(tagName) > 0) && (tagName[strlen (tagName) - 1] == '\n'))
+                            fileName[strlen (tagName) - 1] = '\0';
  //                           system("cls");
- //                           addTag (char * category,Map * tagMap);
+                            addTag (tagName,auxCat);
                             loadcatmenu();
                             break;
 

@@ -180,6 +180,25 @@ cat* enterCat(char * category,Map* catMap) {
     return aux;
 }
 
+void addTag (char * tags,cat* category){
+    tag* ToAdd = malloc(sizeof(tag));
+    ToAdd->file_list = list_create_empty();
+    tag* aux = malloc(sizeof(tag));
+    aux = searchMap(category->tagMap,tags);
+    if(aux != NULL){
+        printf("tag %s ya existe, porfavor intente con otro nombre \n",aux->nameTag);
+        getchar();
+        return;
+    }
+    ToAdd->nameTag = calloc(30,sizeof(char));
+    strcpy(ToAdd->nameTag,tags);
+    insertMap(category->tagMap,tags,ToAdd);
+    printf("tag '%s' agregada exitosamente!, presione enter para continuar", ToAdd->nameTag);
+    getchar();
+    return;
+}
+
+
 cat* findLatest(Map* catMap, char* fileName){
     cat* recentCat = malloc(sizeof(cat));
     recentCat = firstMap(catMap);
@@ -264,14 +283,23 @@ int recentList(list* latest){
 
 void loadFile(char* filename, cat* auxCat, list* recents){
     fileStruct* aux = malloc(sizeof(fileStruct));
+    fileStruct* recent_duplicate = malloc(sizeof(fileStruct));
     aux = searchMap(auxCat->fileMap,filename);
     if(aux != NULL){
-        printf("Cargando archivo %s (presione cualquier tecla para continuar)",aux->name);
+        printf("Cargando archivo %s (presione enter para continuar)",aux->name);
+        recent_duplicate = list_first(recents);
+        while(recent_duplicate != NULL){
+            if(recent_duplicate == aux){
+                getchar();
+                return;
+            }
+            recent_duplicate = list_next(recents);
+        }
         list_push_front(recents,aux);
         getchar();
         return;
     }else{
-        printf("Archivo no encontrado, intente nuevamente (presione cualquier tecla para proceder)");
+        printf("Archivo no encontrado, intente nuevamente (presione enter para proceder)");
         getchar();
         return;
     }

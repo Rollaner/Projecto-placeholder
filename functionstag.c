@@ -25,20 +25,6 @@ void addDefaultTag(Map* tagMap){
 
 }
 
-void addTag (char * tags,Map * tagMap){
-    tag* ToAdd = malloc(sizeof(tag));
-    ToAdd->file_list = list_create_empty();
-    tag* aux = malloc(sizeof(tag));
-    aux = searchMap(tagMap,tags);
-    if(aux != NULL){
-        printf("tag %s ya existe, porfavor intente con otro nombre \n",aux->nameTag);
-        return;
-    }
-    ToAdd->nameTag = calloc(30,sizeof(char));
-    strcpy(ToAdd->nameTag,tags);
-    insertMap(tagMap,tags,ToAdd);
-    return;
-}
 
 void deleteTag (char * name, Map * tagMap){
 

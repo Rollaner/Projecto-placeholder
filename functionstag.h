@@ -12,8 +12,6 @@ typedef struct fileStruct fileStruct;
 
 void addDefaultTag(Map* tagMap);
 
-void addTag (char * category,Map * tagMap);
-
 void deleteTag (char * tags, Map * tagMap);
 
 void enterTag (char * tags);
