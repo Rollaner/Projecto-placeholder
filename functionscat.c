@@ -54,7 +54,7 @@ Map* loadCats(){
     char* String = calloc(100,sizeof(char));    //<----string de datos de la categoria
     char* dataStream = calloc(150,sizeof(char));
     char* tagStream = calloc(30,sizeof(char));
-    char* dataTagStream = calloc(30,sizeof(char));
+    char* dataTagStream = calloc(30,sizeof(char)); // para cargar tags de dataStream
     tag* auxTag = malloc(sizeof(tag));
     while(fgets(String,100,Catfile) != NULL){
         cat* catLoader = malloc(sizeof(cat));       /** inicializa variables de la categoria */
@@ -71,6 +71,7 @@ Map* loadCats(){
             tagStruct_loader->file_list = list_create_empty();
             tagStruct_loader->nameTag = calloc(30,sizeof(char));
             strcpy(tagStruct_loader->nameTag,get_csv_field(tagStream,1));
+            insertMap(catLoader->tagMap,tagStruct_loader->nameTag,tagStruct_loader);
         }
         fclose(tagLoader);
         strcpy(tagFile,"\0");
@@ -86,8 +87,8 @@ Map* loadCats(){
                 strcpy(dataTagStream,get_csv_field(dataStream,i));
                 auxTag = searchMap(catLoader->tagMap,dataTagStream);
                 insertMap(fileLoader->file_tagmap,dataStream,auxTag);
+                list_push_back(auxTag->file_list,fileLoader);
             }
-            //falta, cargar tags de archivo i de csv variable, como compensar por eso?
             insertMap(catLoader->fileMap,fileLoader->name,fileLoader);
         }
         fclose(dataLoader);
