@@ -107,7 +107,7 @@ void addCat(char * category,Map * catMap) {
     ToAdd->name = category;
     addDefaultTag(ToAdd->tagMap);
     insertMap(catMap,category,ToAdd);                       // añadido a mapa global de categorias
-    return;     /** falta revisar que no se dupliquen un if*/
+    return;
 }
 
 void catList(Map* catMap){
@@ -244,12 +244,30 @@ void addFile(char* filename, cat* auxCat){
     }
 }
 
+int recentList(list* latest){
+    int i = 1;
+    fileStruct* filename_recents = malloc(sizeof(fileStruct));
+    filename_recents = list_first(latest);
+    if(filename_recents != NULL){
+        printf("Tus 5 archivos mas recientes son: \n");
+        while(filename_recents != NULL){
+            printf("Archivo %d: %s \n",i,filename_recents->name);
+            filename_recents = list_next(latest);
+        }
+    }else{
+        printf("No hay archivos recentes. \n\n");
+        return 0;
+    }
+    printf("\n");
+    return 1;
+}
+
 void loadFile(char* filename, cat* auxCat, list* recents){
     fileStruct* aux = malloc(sizeof(fileStruct));
     aux = searchMap(auxCat->fileMap,filename);
     if(aux != NULL){
         printf("Cargando archivo %s (presione cualquier tecla para continuar)",aux->name);
-        list_push_front(recents,filename);
+        list_push_front(recents,aux);
         getchar();
         return;
     }else{

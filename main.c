@@ -7,23 +7,6 @@
 #include "list.h"
 #include "queue.h"
 
-int recentList(list* latest){
-    int i = 1;
-    char* filename_recents = calloc(30,sizeof(char));
-    filename_recents = list_first(latest);
-    if(filename_recents != NULL){
-        printf("Tus 5 archivos mas recientes son: \n"); /** Solo como prueba de concepto */
-        while(filename_recents != NULL){
-            printf("Archivo %d: %s\n",i,filename_recents);
-            filename_recents = list_next(latest);
-        }
-    }else{
-        printf("No hay archivos recentes. \n\n");
-        return 0;
-    }
-    return 1;
-}
-
 void loadmenu(){
     printf("                Bienvenido a\n\n"); //Portada del programa
     printf("                PLACEHOLDER \n\n\n\n");
@@ -42,12 +25,12 @@ void loadcatmenu(){
                 system("cls");
                 printf("Menu de tags\n\n");
                 printf("Crear nueva tag: Ingrese tecla [1]\n");
-                printf("Añadir archivo a la categoria: Ingrese tecla [2]\n");
-                printf("Añadir multiples archivos a la categoria: Ingrese tecla [3]\n");
+                printf("Agregar archivo a la categoria: Ingrese tecla [2]\n");
+                printf("Agregar multiples archivos a la categoria: Ingrese tecla [3]\n");
                 printf("Borrar una tag: Ingresar tecla [4]\n");
                 printf("Mostrar archivos de una tag: Ingresar tecla [5]\n");
                 printf("Cargar un archivo especifico [6]\n");
-                printf("Eliminar un archivo especufico [7]\n");
+                printf("Eliminar un archivo especifico [7]\n");
                 printf("Volver al menu de la principal: Ingresar tecla [8]\n");
 
 }
@@ -59,6 +42,7 @@ int main()
     char op2 = 0;
     int switchop2 = 0;
     int i;
+    char buffer;
     char* catname = calloc(30,sizeof(char));
     //Map* catMap = createMap(stringHash,stringEqual); /** mapa para categorias*/
     //Map* tagMap = createMap(stringHash,stringEqual);         /**estan en functionscat.h y .c*/
@@ -69,10 +53,9 @@ int main()
     catList(catMap);
     while(switchop != 5){          /** Menu de categoria, usa los valores que entrege el usuario (nombres)*/
         scanf("%c", &op);
-        if(isalpha(op)){
-                while(isalpha(op)){
+        if((isalpha(op))||(isspace(op))){
+                while(isalpha(op)||(isspace(op))){
                     printf("Entrada invalida, porfavor ingrese un numero\n");
-                    getchar();
                     scanf("%c", &op);
                 }
         }
@@ -84,9 +67,12 @@ int main()
             scanf("%s",catname);
             addCat(catname,catMap);
             system("cls");
-            loadmenu();
-            recentList(latest);
-            catList(catMap);
+                op = '0';
+                scanf("%c", &buffer); //elimina \n
+                system("cls");
+                loadmenu();
+                recentList(latest);
+                catList(catMap);
             break;
         case 2: printf("Ingrese nombre de la categoria a eliminar \n ");
             fgets(catname,10,stdin);
@@ -94,10 +80,12 @@ int main()
             if ((strlen(catname) > 0) && (catname[strlen (catname) - 1] == '\n'))
             catname[strlen (catname) - 1] = '\0';
             deleteCat(catname,catMap);
-            system("cls");
-            loadmenu();
-            recentList(latest);
-            catList(catMap);
+                op = '0';
+                scanf("%c", &buffer); //elimina \n
+                system("cls");
+                loadmenu();
+                recentList(latest);
+                catList(catMap);
             break;
         case 3: printf("Ingrese nombre categoria \n");
             fgets(catname,10,stdin);
@@ -189,6 +177,7 @@ int main()
                     }
             system("cls");
             switchop2 = 0;
+            scanf("%c", &buffer);
             loadmenu();
             recentList(latest);
             catList(catMap);
@@ -202,16 +191,25 @@ int main()
                     if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
                             fileName[strlen (fileName) - 1] = '\0';
                     cat* recentCat = findLatest(catMap,fileName);
+                    if(recentCat == NULL){
+                        printf("Archivo no existe, porfavor intente nuevamente \n");
+                        op = '0';
+                        scanf("%c", &buffer); //elimina \n
+                        system("cls");
+                        loadmenu();
+                        recentList(latest);
+                        catList(catMap);
+                        break;
+                    }
                     loadFile(fileName,recentCat,latest);
                 }
-                else{
-                    printf("No hay archivos recientes\n");
-                }
+                op = '0';
+                scanf("%c", &buffer); //elimina \n
+                scanf("%c", &buffer);
                 system("cls");
                 loadmenu();
                 recentList(latest);
                 catList(catMap);
-                op = 0;
                 break;
 
         case 5: system("cls"); /**Con esta se sale del programa*/
@@ -220,7 +218,7 @@ int main()
                 exit(0);
 
         default: printf("Opcion no valida, intente nuevamentente \n");
-                getchar();
+                 scanf("%c",&buffer);
                 continue;
         }
     }
