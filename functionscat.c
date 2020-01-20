@@ -328,7 +328,6 @@ void massTagging (char* tagName, cat* auxCat){
                 printf("archivo %s ingresado exitosamente\n",fileCheck->name);
             }
         }
-        //addFile(fileName,auxCat); // requiere trabajo.
         printf("Desea continuar agregando archivos? y/n\n");
         scanf("%c",&confirmChar);
         getchar();
@@ -519,30 +518,30 @@ void exportcats(Map* catMap){
         strcat(fileOpener,"Files\\");
         strcat(fileOpener,catExporter->name);
         strcat(fileOpener,"-tags.csv");
-        FILE* tagPointer = fopen(fileOpener,"w");
+        FILE* tagPointer = fopen(fileOpener,"w"); // Abre archivo de tags, para actualizarlo
         tagAux = firstMap(catExporter->tagMap);
         while(tagAux!=NULL){
             fprintf(tagPointer,"%s,\n",tagAux->nameTag);
             tagAux = nextMap(catExporter->tagMap);
         }
-        fclose(tagPointer);
+        fclose(tagPointer);                     //Cierra el archivo tags
         strcpy(fileOpener,"\0");
         strcat(fileOpener,"Files\\");
         strcat(fileOpener,catExporter->name);
         strcat(fileOpener,"-data.csv");
-        FILE* dataPointer = fopen(fileOpener,"w");
+        FILE* dataPointer = fopen(fileOpener,"w"); //Abre el archivo data para editarlo
         fileAux = firstMap(catExporter->fileMap);
         while(fileAux!=NULL){
-            fprintf(dataPointer,"%s,",fileAux->name);
+            fprintf(dataPointer,"%s,",fileAux->name); //Imprime nombre archivo
             tagListAux = firstMap(fileAux->file_tagmap);
-            while(tagListAux!= NULL){
+            while(tagListAux!= NULL){               //Imprime cada categoria, sin orden
                 fprintf(dataPointer,"%s,",tagListAux->nameTag);
                 tagListAux = nextMap(fileAux->file_tagmap);
             }
             fprintf(dataPointer,"\n");
-            fileAux = nextMap(catExporter->fileMap);
+            fileAux = nextMap(catExporter->fileMap); //Pasa al sgte archivo
         }
-        fclose(dataPointer);
+        fclose(dataPointer);            //Cierra el archivo de data
         strcpy(fileOpener,"\0");
         catExporter = nextKeyMap(catMap);
     }
@@ -553,7 +552,7 @@ void exportlatest(list* latestList){
     FILE* latest_exporter = fopen("Files//Latest.csv","w");
     fileStruct* auxfile = list_first(latestList);
     while(auxfile != NULL){
-        fprintf(latest_exporter,"%s,\n",auxfile->name);
+        fprintf(latest_exporter,"%s,\n",auxfile->name);  //Imprime cada archivo reciente
     }
     fclose(latest_exporter);
     return;
