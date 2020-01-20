@@ -314,7 +314,7 @@ void deleteTag (char * name, cat* category){
                 tagCleaner = NULL;
                 if(emptyMap(fileAux->file_tagmap)){
                     free(fileAux);
-                    fileAux == NULL;
+                    fileAux = NULL;
                 }
                 fileAux = list_pop_front(currentTag->file_list);
                 continue;
