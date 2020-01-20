@@ -251,7 +251,6 @@ void massTagging (char* tagName, cat* auxCat){
     char confirmChar = 'y';
     while(confirmChar == 'y'){
         printf("Ingrese el nombre del archivo\n");
-        fgets(fileName,10,stdin);
         fgets(fileName,30,stdin);
         if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
             fileName[strlen (fileName) - 1] = '\0';
@@ -268,10 +267,12 @@ void massTagging (char* tagName, cat* auxCat){
             insertMap(auxDupped->file_tagmap,auxtag->nameTag,auxtag); //inserta la tag en el mapa del archivo
             insertMap(auxCat->tagMap, auxtag->nameTag, auxtag); //ingresa auxtag al mapa de tags
             fileCheck = searchMap(auxCat->fileMap,fileName);
-            if(fileCheck == NULL)
+            if(fileCheck == NULL){
                 printf("Operation Failed, return to menu\n");
-            else
+            }
+            else{
                 printf("archivo %s ingresado exitosamente\n",fileCheck->name);
+            }
         }
         else
         {
@@ -283,14 +284,18 @@ void massTagging (char* tagName, cat* auxCat){
             list_push_back(auxtag->file_list,toBeAdded);
             insertMap(toBeAdded->file_tagmap,auxtag->nameTag,auxtag);
             insertMap(auxCat->tagMap, auxtag->nameTag, auxtag);
-            if(fileCheck == NULL)
+            fileCheck = searchMap(auxCat->fileMap,fileName);
+            if(fileCheck == NULL){
                 printf("Operation Failed, return to menu\n");
-            else
+            }
+            else{
                 printf("archivo %s ingresado exitosamente\n",fileCheck->name);
+            }
         }
         //addFile(fileName,auxCat); // requiere trabajo.
         printf("Desea continuar agregando archivos? y/n\n");
         scanf("%c",&confirmChar);
+        getchar();
     }
     return;
 }
