@@ -88,7 +88,7 @@ Map* loadCats(){
             for(i= 2; get_csv_field(dataStream,i) != NULL; i++){
                 strcpy(dataTagStream,get_csv_field(dataStream,i));
                 auxTag = searchMap(catLoader->tagMap,dataTagStream);
-                insertMap(fileLoader->file_tagmap,dataTagStream,auxTag);
+                insertMap(fileLoader->file_tagmap,auxTag->nameTag,auxTag);
                 list_push_back(auxTag->file_list,fileLoader);
             }
             insertMap(catLoader->fileMap,fileLoader->name,fileLoader);
@@ -114,7 +114,7 @@ void addCat(char * category,Map * catMap) {
     ToAdd->name = calloc(30,sizeof(char));                  // nombre para presentar categoria
     strcpy(ToAdd->name,category);
     addDefaultTag(ToAdd->tagMap);
-    insertMap(catMap,category,ToAdd);                       // añadido a mapa global de categorias
+    insertMap(catMap,ToAdd->name,ToAdd);                       // añadido a mapa global de categorias
     return;
 }
 
@@ -232,7 +232,7 @@ void addTag (char * tags,cat* category){
     }
     ToAdd->nameTag = calloc(30,sizeof(char));
     strcpy(ToAdd->nameTag,tags);
-    insertMap(category->tagMap,tags,ToAdd);
+    insertMap(category->tagMap,ToAdd->nameTag,ToAdd);
     printf("tag '%s' agregada exitosamente!, presione enter para continuar", ToAdd->nameTag);
     return;
 }
@@ -246,11 +246,12 @@ void massTagging (char* tagName, cat* auxCat){
         auxtag->file_list = list_create(NULL);
         auxtag->nameTag = calloc(30,sizeof(char));
         strcpy(auxtag->nameTag,tagName);
-        insertMap(auxCat->tagMap,tagName,auxtag);
+        insertMap(auxCat->tagMap,auxtag->nameTag,auxtag);
     } // confirma que la tag no existe y en ese caso la crea.
     char confirmChar = 'y';
     while(confirmChar == 'y'){
         printf("Ingrese el nombre del archivo\n");
+        fgets(fileName,10,stdin);
         fgets(fileName,30,stdin);
         if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
             fileName[strlen (fileName) - 1] = '\0';
@@ -264,8 +265,8 @@ void massTagging (char* tagName, cat* auxCat){
                 continue;
             }
             list_push_front(auxtag->file_list,auxDupped); //inserta archivo en la lista de la tag.
-            insertMap(auxDupped->file_tagmap,tagName,auxtag); //inserta la tag en el mapa del archivo
-            insertMap(auxCat->tagMap, tagName, auxtag); //ingresa auxtag al mapa de tags
+            insertMap(auxDupped->file_tagmap,auxtag->nameTag,auxtag); //inserta la tag en el mapa del archivo
+            insertMap(auxCat->tagMap, auxtag->nameTag, auxtag); //ingresa auxtag al mapa de tags
             fileCheck = searchMap(auxCat->fileMap,fileName);
             if(fileCheck == NULL)
                 printf("Operation Failed, return to menu\n");
@@ -276,12 +277,16 @@ void massTagging (char* tagName, cat* auxCat){
         {
             fileStruct* toBeAdded = malloc(sizeof(fileStruct));
             toBeAdded->name = calloc(30,sizeof(char));
-            toBeAdded->file_tagmap = createMap(stringHash,stringEqual);
-            insertMap(auxCat->fileMap,fileName,toBeAdded);   //crea un nuevo archivo y lo inserta al mapa de archivos
-            list_push_back(auxtag->file_list,toBeAdded);
-            insertMap(toBeAdded->file_tagmap,tagName,auxtag);
-            insertMap(auxCat->tagMap, tagName, auxtag);
             strcpy(toBeAdded->name,fileName);
+            toBeAdded->file_tagmap = createMap(stringHash,stringEqual);
+            insertMap(auxCat->fileMap,toBeAdded->name,toBeAdded);   //crea un nuevo archivo y lo inserta al mapa de archivos
+            list_push_back(auxtag->file_list,toBeAdded);
+            insertMap(toBeAdded->file_tagmap,auxtag->nameTag,auxtag);
+            insertMap(auxCat->tagMap, auxtag->nameTag, auxtag);
+            if(fileCheck == NULL)
+                printf("Operation Failed, return to menu\n");
+            else
+                printf("archivo %s ingresado exitosamente\n",fileCheck->name);
         }
         //addFile(fileName,auxCat); // requiere trabajo.
         printf("Desea continuar agregando archivos? y/n\n");
@@ -324,7 +329,7 @@ void deleteTag (char * name, cat* category){
             tagCleaner = NULL;
             if(emptyMap(fileAux->file_tagmap)){
                 list_push_back(Untagged->file_list,fileAux);
-                insertMap(fileAux->file_tagmap,"untagged",Untagged);
+                (fileAux->file_tagmap,"untagged",Untagged);
             }
             fileAux = list_pop_front(currentTag->file_list);
         }
@@ -376,8 +381,8 @@ void addFile(char* filename, cat* auxCat){
                 return;
             }
             list_push_front(auxtag->file_list,auxDupped); //inserta archivo en la lista de la tag.
-            insertMap(auxDupped->file_tagmap,tagName,auxtag); //inserta la tag en el mapa del archivo
-            insertMap(auxCat->tagMap, tagName, auxtag); //ingresa auxtag al mapa de tags
+            insertMap(auxDupped->file_tagmap,auxtag->nameTag,auxtag); //inserta la tag en el mapa del archivo
+            insertMap(auxCat->tagMap, auxtag->nameTag, auxtag); //ingresa auxtag al mapa de tags
         }
         return;
     }else{
@@ -386,8 +391,8 @@ void addFile(char* filename, cat* auxCat){
         toBeAdded->file_tagmap = createMap(stringHash,stringEqual);
         insertMap(auxCat->fileMap,filename,toBeAdded);   //crea un nuevo archivo y lo inserta al mapa de archivos
         list_push_back(auxtag->file_list,toBeAdded);
-        insertMap(toBeAdded->file_tagmap,tagName,auxtag);
-        insertMap(auxCat->tagMap, tagName, auxtag);
+        insertMap(toBeAdded->file_tagmap,auxtag->nameTag,auxtag);
+        insertMap(auxCat->tagMap, auxtag->nameTag, auxtag);
         strcpy(toBeAdded->name,filename);
         fileStruct* fileCheck = malloc(sizeof(fileStruct)); //para comprobar que la insercion fue exitosa
         fileCheck = searchMap(auxCat->fileMap,filename);
