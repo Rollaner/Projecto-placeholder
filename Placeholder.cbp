@@ -41,13 +41,6 @@
 		<Unit filename="functionscat.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="functionstag.c">
-			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="functionstag.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="list.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -55,10 +48,6 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="queue.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="queue.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

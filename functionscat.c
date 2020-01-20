@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "functionstag.h"
 #include "functionscat.h"
-#include "functionstag.c"
 #include "Map.h"
 #include "list.h"
 
@@ -45,6 +43,26 @@ struct cat{
     char* name;
 };
 
+struct tag{
+    list* file_list;
+    char* nameTag;
+};
+
+struct fileStruct{
+    Map* file_tagmap;
+    char* name;
+};
+
+void addDefaultTag(Map* tagMap){
+    tag* ToAdd = malloc(sizeof(tag));
+    ToAdd->file_list = list_create_empty();
+    ToAdd->nameTag = calloc(30,sizeof(char));
+    strcpy(ToAdd->nameTag,"untagged");
+    insertMap(tagMap,"untagged",ToAdd);
+    return;
+
+}
+
 Map* loadCats(){
     Map* CatMap = createMap(stringHash,stringEqual);
     FILE* Catfile = fopen("Files\\Categories.csv","r");
@@ -52,7 +70,7 @@ Map* loadCats(){
     char* dataFile = calloc(50,sizeof(char));
     char* tagFile = calloc(50,sizeof(char));
     char* String = calloc(100,sizeof(char));    //<----string de datos de la categoria
-    char* dataStream = calloc(150,sizeof(char));
+    char* dataStream = calloc(210,sizeof(char)); // carga los datos del archivo -data
     char* tagStream = calloc(30,sizeof(char));
     char* dataTagStream = calloc(30,sizeof(char)); // para cargar tags de dataStream
     tag* auxTag = malloc(sizeof(tag));
@@ -65,7 +83,7 @@ Map* loadCats(){
         insertMap(CatMap,catLoader->name,catLoader);
         strcat(tagFile,"Files\\");
         strcat(tagFile,get_csv_field(String,2));
-        strcat(tagFile,".csv");
+        strcat(tagFile,".csv");             //son para concatenar la ubicacion del archivo a cargar esto aplica a todos los strcat del programa
         FILE* tagLoader = fopen(tagFile,"r");
         while(fgets(tagStream,30,tagLoader)!= NULL){
             tag* tagStruct_loader = malloc(sizeof(tag));
@@ -97,7 +115,26 @@ Map* loadCats(){
         strcpy(dataFile,"\0"); //resetea string para ubicar archivo
         //printf("%s \n",catLoader->name);
     }
+    fclose(Catfile);
     return CatMap;
+}
+
+list* loadLatest(Map* catMap){
+    list* latest_loader = list_create_empty();
+    FILE* latestFile = fopen("Files\\Latest.csv","r");
+    char* dataStream = calloc(50,sizeof(char));
+    cat* auxCat; fileStruct* auxfile;
+    while(fgets(dataStream,50,latestFile)!= NULL){
+            auxCat = findLatest(catMap,get_csv_field(dataStream,1));
+            if(auxCat != NULL){
+                auxfile = searchMap(auxCat->fileMap,get_csv_field(dataStream,1));
+                list_push_front(latest_loader,auxfile);
+            }else{
+                continue;
+            }
+    }
+    fclose(latestFile);
+    return latest_loader;
 }
 
 void addCat(char * category,Map * catMap) {
@@ -181,7 +218,6 @@ void deleteCat(char * category, Map * catMap){
         if(ToDel->tagMap != NULL){
             ToDelTag = firstMap(ToDel->tagMap);
             while (ToDelTag != NULL){
-               // listCleanup(ToDelTag);
                 free(ToDelTag);
                 ToDelTag = NULL;
                 ToDelTag = nextMap(ToDel->tagMap);
@@ -334,7 +370,7 @@ void deleteTag (char * name, cat* category){
             tagCleaner = NULL;
             if(emptyMap(fileAux->file_tagmap)){
                 list_push_back(Untagged->file_list,fileAux);
-                (fileAux->file_tagmap,"untagged",Untagged);
+                insertMap(fileAux->file_tagmap,"untagged",Untagged);
             }
             fileAux = list_pop_front(currentTag->file_list);
         }
@@ -346,7 +382,7 @@ void deleteTag (char * name, cat* category){
     return;
 }
 
-cat* findLatest(Map* catMap, char* fileName){
+cat* findLatest(Map* catMap, const char* fileName){
     cat* recentCat = malloc(sizeof(cat));
     recentCat = firstMap(catMap);
     while(recentCat != NULL){
@@ -442,6 +478,9 @@ void loadFile(char* filename, cat* auxCat, list* recents){
             recent_duplicate = list_next(recents);
         }
         list_push_front(recents,aux);
+        if(list_size(recents) > 5){
+            list_pop_back(recents);
+        }
         return;
     }else{
         printf("Archivo no encontrado, intente nuevamente (presione enter para proceder)");
@@ -507,5 +546,15 @@ void exportcats(Map* catMap){
         strcpy(fileOpener,"\0");
         catExporter = nextKeyMap(catMap);
     }
+    return;
+}
+
+void exportlatest(list* latestList){
+    FILE* latest_exporter = fopen("Files//Latest.csv","w");
+    fileStruct* auxfile = list_first(latestList);
+    while(auxfile != NULL){
+        fprintf(latest_exporter,"%s,\n",auxfile->name);
+    }
+    fclose(latest_exporter);
     return;
 }

@@ -41,13 +41,10 @@ int main()
     int switchop = 0;
     char op2 = 0;
     int switchop2 = 0;
-    //int i;
-    char buffer;
-    char* catname = calloc(30,sizeof(char));
-    //Map* catMap = createMap(stringHash,stringEqual); /** mapa para categorias*/
-    //Map* tagMap = createMap(stringHash,stringEqual);         /**estan en functionscat.h y .c*/
+    char buffer; //existe para eliminar basura.
+    char* catname = calloc(30,sizeof(char)); //30 caracteres limite para nombres, lo corta si se pasa
     Map* catMap = loadCats();
-    list* latest = list_create_empty();
+    list* latest = loadLatest(catMap);
     loadmenu();
     recentList(latest);
     catList(catMap);
@@ -60,7 +57,7 @@ int main()
                     scanf("%c", &op);
                 }
         }
-        switchop = op - '0';
+        switchop = op - '0'; // para convertir de char a int. '0' es el caracter cero. Todo esto es para que el menu no se rompa con caracteres
         switch(switchop){
 
         case 1: printf("Ingrese nombre de la categoria \n");
@@ -264,6 +261,7 @@ int main()
 
         case 5: system("cls"); /**Con esta se sale del programa*/
                 exportcats(catMap);
+                exportlatest(latest);
                 printf ("\n\n\n\n\n                HASTA PRONTO!!!\n\n\n\n");
                 exit(0);
 

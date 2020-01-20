@@ -9,6 +9,12 @@
 
 typedef struct cat cat;
 
+typedef struct tag tag;
+
+typedef struct fileStruct fileStruct;
+
+void addDefaultTag(Map* tagMap);
+
 long long stringHash(const void * key);
 
 int stringEqual(const void * key1, const void * key2);
@@ -39,10 +45,12 @@ void taglist (char* tagName, cat* auxCat);
 
 void deleteTag (char * name, cat* category);
 
-cat* findLatest(Map* catMap, char* fileName);
+cat* findLatest(Map* catMap, const char* fileName);
 
 int recentList(list* latest);
 
 void exportcats(Map* catMap);
+
+void exportlatest(list* latest);
 
 #endif // // functionscat_h //

@@ -24,7 +24,7 @@
 
 1579106940 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\queue.h
 
-1579539397 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\main.c
+1579544435 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\main.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
@@ -34,7 +34,7 @@
 	"list.h"
 	"queue.h"
 
-1579480802 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.h
+1579544910 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -57,14 +57,12 @@
 	<string.h>
 	<ctype.h>
 
-1579542471 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.c
+1579544842 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-placeholder\functionscat.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<ctype.h>
-	"functionstag.h"
 	"functionscat.h"
-	"functionstag.c"
 	"Map.h"
 	"list.h"
 
