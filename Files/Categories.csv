@@ -1,6 +1,6 @@
-Universidad,Universidad-tags.csv,Universidad-data.csv
-Gatetes,Gatetes-tags.csv,Gatetes-data.csv
-Videojuegos,Videojuegos-tags.csv,Videojuegos-data.csv 
-Cocina,Cocina-tags.csv,Cocina-data.csv
-Trabajo,Trabajo-tags.csv,Trabajo-data.csv
-Dank Memes,Dank Memes-tags.csv,Dank Memes-data.csv
+Videojuegos,Videojuegos-tags,Videojuegos-data
+Cocina,Cocina-tags,Cocina-data
+Gatetes,Gatetes-tags,Gatetes-data
+Trabajo,Trabajo-tags,Trabajo-data
+Dank Memes,Dank Memes-tags,Dank Memes-data
+Universidad,Universidad-tags,Universidad-data
