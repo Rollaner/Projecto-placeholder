@@ -65,6 +65,7 @@ Map* loadCats(){
         insertMap(CatMap,catLoader->name,catLoader);
         strcat(tagFile,"Files\\");
         strcat(tagFile,get_csv_field(String,2));
+        strcat(tagFile,".csv");
         FILE* tagLoader = fopen(tagFile,"r");
         while(fgets(tagStream,30,tagLoader)!= NULL){
             tag* tagStruct_loader = malloc(sizeof(tag));
@@ -77,6 +78,7 @@ Map* loadCats(){
         strcpy(tagFile,"\0");
         strcat(dataFile,"Files\\");                 //ambos strcat son para
         strcat(dataFile,get_csv_field(String,3));  //compilar la string para ubicar el archivo
+        strcat(dataFile,".csv");
         FILE* dataLoader = fopen(dataFile,"r");
         while(fgets(dataStream,150,dataLoader) != NULL){
             fileStruct* fileLoader = malloc(sizeof(fileStruct));        /**inicializa variables de archivo*/
