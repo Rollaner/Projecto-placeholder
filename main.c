@@ -9,7 +9,7 @@
 
 void loadmenu(){
     printf("                Bienvenido a\n\n"); //Portada del programa
-    printf("                PLACEHOLDER \n\n\n\n");
+    printf("                HOLDER \n\n\n\n");
 
     printf("Ingrese numero de la operacion deseada: \n"); /**Menu principal del programa*/
     printf("1) Agregar categoria \n");
