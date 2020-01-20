@@ -51,6 +51,7 @@ int main()
     loadmenu();
     recentList(latest);
     catList(catMap);
+    char* fileName = calloc(30,sizeof(char));
     while(switchop != 5){          /** Menu de categoria, usa los valores que entrege el usuario (nombres)*/
         scanf("%c", &op);
         if((isalpha(op))||(isspace(op))){
@@ -102,7 +103,6 @@ int main()
                 catList(catMap);
                 break;
             }
-            char* fileName = calloc(30,sizeof(char));
             char* tagName = calloc(30,sizeof(char));
                     loadcatmenu();
                     cat_taglist(auxCat);
@@ -236,7 +236,6 @@ int main()
 
         case 4: if(recentList(latest)){
                     printf("Ingrese nombre archivo\n");
-                    //char* recentFile = calloc(30,sizeof(char));
                     fgets(fileName,10,stdin);
                     fgets(fileName,30,stdin);
                     if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
