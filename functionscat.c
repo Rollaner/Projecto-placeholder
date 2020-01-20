@@ -456,7 +456,7 @@ void deleteFile(char* filename, cat* auxCat){
 }
 
 void exportcats(Map* catMap){
-    FILE* fp = fopen("Files\\Categories-OUTPUT.csv","w");
+    FILE* fp = fopen("Files\\Categories.csv","w");
     cat* catExporter = malloc(sizeof(cat));
     fileStruct* fileAux = malloc(sizeof(fileStruct));
     tag* tagAux = malloc(sizeof(tag));
