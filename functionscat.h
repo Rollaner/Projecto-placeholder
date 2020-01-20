@@ -31,6 +31,8 @@ cat* enterCat (char * category,Map* catMap);
 
 void addTag (char * tags,cat* category);
 
+void massTagging (char* tagName, cat* auxCat);
+
 //void cat_taglist (cat* auxCat);
 
 void taglist (char* tagName, cat* auxCat);

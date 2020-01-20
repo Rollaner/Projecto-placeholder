@@ -86,7 +86,7 @@ Map* loadCats(){
             for(i= 2; get_csv_field(dataStream,i) != NULL; i++){
                 strcpy(dataTagStream,get_csv_field(dataStream,i));
                 auxTag = searchMap(catLoader->tagMap,dataTagStream);
-                insertMap(fileLoader->file_tagmap,dataStream,auxTag);
+                insertMap(fileLoader->file_tagmap,dataTagStream,auxTag);
                 list_push_back(auxTag->file_list,fileLoader);
             }
             insertMap(catLoader->fileMap,fileLoader->name,fileLoader);
@@ -106,7 +106,7 @@ void addCat(char * category,Map * catMap) {
     aux = searchMap(catMap,category);
     if(aux != NULL){
         printf("categoria %s ya existe, porfavor intente con otro nombre \n",aux->name);
-        getchar(); /*requiere dos*/
+        getchar();
         return;
     }
     ToAdd->name = calloc(30,sizeof(char));                  // nombre para presentar categoria
@@ -116,17 +116,21 @@ void addCat(char * category,Map * catMap) {
     return;
 }
 
-/*void cat_taglist (cat* auxCat){
+void cat_taglist (cat* auxCat){
     tag* tempTag = firstMap(auxCat->tagMap);
-    printf("%s  \n",tempTag->nameTag);
+    if(tempTag == NULL){
+        printf("La categoria no posee etiquetas \n");
+        return;
+    }
+    printf("Etiquetas de la categoria: \n");
     while(tempTag!= NULL){
-        tempTag = nextMap(tagMap);
+        printf("%s  \n",tempTag->nameTag);
+        tempTag = nextMap(auxCat->tagMap);
         if(tempTag == NULL)
             break;
-        printf("%s \n",tempTag->nameTag);
     }
-
-}*/
+    return;
+}
 
 void taglist (char* tagName, cat* auxCat){
     tag* auxTag = searchMap(auxCat->tagMap,tagName);
@@ -231,11 +235,64 @@ void addTag (char * tags,cat* category){
     return;
 }
 
+void massTagging (char* tagName, cat* auxCat){
+    char* fileName = calloc(30,sizeof(char));
+    tag* auxtag = searchMap(auxCat->tagMap,tagName);
+    fileStruct* fileCheck = malloc(sizeof(fileStruct)); //para comprobar que la insercion fue exitosa
+    if(auxtag == NULL){
+        auxtag = malloc(sizeof(tag));
+        auxtag->file_list = list_create(NULL);
+        auxtag->nameTag = calloc(30,sizeof(char));
+        strcpy(auxtag->nameTag,tagName);
+        insertMap(auxCat->tagMap,tagName,auxtag);
+    } // confirma que la tag no existe y en ese caso la crea.
+    char confirmChar = 'y';
+    while(confirmChar == 'y'){
+        printf("Ingrese el nombre del archivo\n");
+        fgets(fileName,30,stdin);
+        if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
+            fileName[strlen (fileName) - 1] = '\0';
+            fileStruct* auxDupped = calloc(30, sizeof(fileStruct));
+        auxDupped = searchMap(auxCat->fileMap,fileName); //revisa que el archivo no exista, en caso de existir, toma su valor para modificarlo
+        if(auxDupped != NULL){
+            if(strcmp(tagName,"untagged") == 0){
+                printf("El archivo ingresado ya existe, revise datos ingresados y/o ingrese una tag valida antes de proceder.\n");
+                printf("Desea continuar agregando archivos? y/n\n");
+                scanf("%c",&confirmChar);
+                continue;
+            }
+            list_push_front(auxtag->file_list,auxDupped); //inserta archivo en la lista de la tag.
+            insertMap(auxDupped->file_tagmap,tagName,auxtag); //inserta la tag en el mapa del archivo
+            insertMap(auxCat->tagMap, tagName, auxtag); //ingresa auxtag al mapa de tags
+            fileCheck = searchMap(auxCat->fileMap,fileName);
+            if(fileCheck == NULL)
+                printf("Operation Failed, return to menu\n");
+            else
+                printf("archivo %s ingresado exitosamente\n",fileCheck->name);
+        }
+        else
+        {
+            fileStruct* toBeAdded = malloc(sizeof(fileStruct));
+            toBeAdded->name = calloc(30,sizeof(char));
+            toBeAdded->file_tagmap = createMap(stringHash,stringEqual);
+            insertMap(auxCat->fileMap,fileName,toBeAdded);   //crea un nuevo archivo y lo inserta al mapa de archivos
+            list_push_back(auxtag->file_list,toBeAdded);
+            insertMap(toBeAdded->file_tagmap,tagName,auxtag);
+            insertMap(auxCat->tagMap, tagName, auxtag);
+            strcpy(toBeAdded->name,fileName);
+        }
+        //addFile(fileName,auxCat); // requiere trabajo.
+        printf("Desea continuar agregando archivos? y/n\n");
+        scanf("%c",&confirmChar);
+    }
+    return;
+}
 
 void deleteTag (char * name, cat* category){
 
     tag* currentTag = searchMap(category->tagMap, name);
     tag* Untagged = searchMap(category->tagMap, "untagged");
+    char confirmDelete = 'n';
     if(currentTag == NULL){
         printf("Tag no existe, revise datos ingresados\n");
         return;
@@ -244,6 +301,22 @@ void deleteTag (char * name, cat* category){
         tag* tagCleaner = malloc(sizeof(tag));
         fileStruct* fileAux = list_pop_front(currentTag->file_list);
         while(fileAux != NULL){
+            if(strcmp(name,"untagged") == 0){
+                printf("Esta operacion eliminara definitivamente cualquier archivo con esta etiqueta\n");
+                printf("Confirme la operacion: y/n");
+                scanf("%c", &confirmDelete);
+                if(confirmDelete != 'y')
+                    return;
+                tagCleaner = eraseKeyMap(fileAux->file_tagmap,name);
+                free(tagCleaner);
+                tagCleaner = NULL;
+                if(emptyMap(fileAux->file_tagmap)){
+                    free(fileAux);
+                    fileAux == NULL;
+                }
+                fileAux = list_pop_front(currentTag->file_list);
+                continue;
+            }
             tagCleaner = eraseKeyMap(fileAux->file_tagmap,name);
             free(tagCleaner);
             tagCleaner = NULL;
@@ -254,8 +327,8 @@ void deleteTag (char * name, cat* category){
             fileAux = list_pop_front(currentTag->file_list);
         }
         eraseKeyMap(category->tagMap,name);
-        free(currentTag);
         currentTag = NULL;
+        free(currentTag);
     }
     printf("Operacion exitosa \n");
     return;

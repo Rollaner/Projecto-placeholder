@@ -31,7 +31,7 @@ void loadcatmenu(){
                 printf("Mostrar archivos de una tag: Ingresar tecla [5]\n");
                 printf("Cargar un archivo especifico [6]\n");
                 printf("Eliminar un archivo especifico [7]\n");
-                printf("Volver al menu de la principal: Ingresar tecla [8]\n");
+                printf("Volver al menu de la principal: Ingresar tecla [8]\n\n");
 
 }
 
@@ -105,6 +105,7 @@ int main()
             char* fileName = calloc(30,sizeof(char));
             char* tagName = calloc(30,sizeof(char));
                     loadcatmenu();
+                    cat_taglist(auxCat);
                     while(switchop2 != -2){
                         scanf("%c", &op2);
                         if(isalpha(op2)||(isspace(op2))){
@@ -127,6 +128,7 @@ int main()
                             op2 = '0';
                             scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
+                            cat_taglist(auxCat);
                             break;
 
                         case 2: //añadir archivo a tag
@@ -139,12 +141,24 @@ int main()
                             op2 = '0';
                             scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
+                            cat_taglist(auxCat);
                             break;
 
                         case 3: //Añadir multiples archivos a una tag
+                            printf("Ingrese nombre de la Tag\n");
+                            fgets(tagName,10,stdin);
+                            fgets(tagName,30,stdin);
+                            if ((strlen(tagName) > 0) && (tagName[strlen (tagName) - 1] == '\n')){
+                                tagName[strlen (tagName) - 1] = '\0';
+                            }
+                                if(strcmp(tagName,"\0") == 0){
+                                    strcpy(tagName,"untagged");
+                            }
+                            massTagging(tagName, auxCat);
                             op2 = '0';
                             scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
+                            cat_taglist(auxCat);
                             break;
 
                         case 4: //Borrar una tag
@@ -159,6 +173,7 @@ int main()
                             op2 = '0';
                             scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
+                            cat_taglist(auxCat);
                             break;
 
                         case 5: //Mostrar archivos de una tag
@@ -171,6 +186,7 @@ int main()
                             op2 = '0';
                             scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
+                            cat_taglist(auxCat);
                             break;
 
                         case 6: // cargar archivo especifico
@@ -183,6 +199,7 @@ int main()
                             op2 = '0';
                             scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
+                            cat_taglist(auxCat);
                             break;
 
                         case 7:
@@ -195,6 +212,7 @@ int main()
                             op2 = '0';
                             scanf("%c", &buffer); //elimina basura
                             loadcatmenu();
+                            cat_taglist(auxCat);
                             break;
 
                         case 8: //Volver al menu de la categoria
@@ -204,6 +222,7 @@ int main()
                                      op2 = '0';
                                      scanf("%c", &buffer); //elimina basura
                                      loadcatmenu();
+                                     cat_taglist(auxCat);
                             continue;
                         }
                     }
