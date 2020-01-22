@@ -190,8 +190,11 @@ void taglist (char* tagName, cat* auxCat){
 
 void catList(Map* catMap){
     printf("Lista categorias: \n");
-
     cat* tempcat = firstMap(catMap);
+    if(tempcat == NULL){
+        printf("No hay categorias, ingrese una antes de proceder\n");
+        return;
+    }
     printf("%s  \n",tempcat->name);
     while(tempcat!= NULL){
         tempcat = nextMap(catMap);
@@ -385,8 +388,9 @@ cat* findLatest(Map* catMap, const char* fileName){
     cat* recentCat = malloc(sizeof(cat));
     recentCat = firstMap(catMap);
     while(recentCat != NULL){
-        if(searchMap(recentCat->fileMap,fileName) == NULL)
-            recentCat = nextMap(catMap);
+        if(searchMap(recentCat->fileMap,fileName) != NULL)
+            return recentCat;
+        recentCat = nextMap(catMap);
     }
     return recentCat;
 }
@@ -553,6 +557,7 @@ void exportlatest(list* latestList){
     fileStruct* auxfile = list_first(latestList);
     while(auxfile != NULL){
         fprintf(latest_exporter,"%s,\n",auxfile->name);  //Imprime cada archivo reciente
+        auxfile = list_next(latestList);
     }
     fclose(latest_exporter);
     return;

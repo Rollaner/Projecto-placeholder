@@ -245,7 +245,7 @@
 
 1572126884 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\map.h
 
-1579546317 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\functionscat.c
+1579723795 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\functionscat.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -260,4 +260,13 @@
 	<string.h>
 	"Map.h"
 	"list.h"
+
+1579720923 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"Map.h"
+	"list.h"
+	"functionscat.h"
 

@@ -251,7 +251,6 @@ int main()
                 }
                 op = '0';
                 scanf("%c", &buffer); //elimina \n
-                scanf("%c", &buffer);
                 system("cls");
                 loadmenu();
                 recentList(latest);
