@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Map.h"
-#include "functionstag.h"
 #include "list.h"
 
 typedef struct cat cat;

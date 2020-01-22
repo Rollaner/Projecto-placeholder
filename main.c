@@ -2,10 +2,9 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include "functionscat.h"
 #include "Map.h"
 #include "list.h"
-#include "queue.h"
+#include "functionscat.h"
 
 void loadmenu(){
     printf("                Bienvenido a\n\n"); //Portada del programa

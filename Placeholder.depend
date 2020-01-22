@@ -227,3 +227,37 @@
 	<ctype.h>
 	"functionstag.h"
 
+1579106940 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\list.c
+	"list.h"
+	<stdlib.h>
+	<assert.h>
+
+1579106940 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\list.h
+
+1572126884 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\map.c
+	"Map.h"
+	<math.h>
+	<string.h>
+	<stdlib.h>
+	<stdint.h>
+	<assert.h>
+	<stdio.h>
+
+1572126884 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\map.h
+
+1579546317 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\functionscat.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"functionscat.h"
+	"Map.h"
+	"list.h"
+
+1579720902 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\functionscat.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Map.h"
+	"list.h"
+
