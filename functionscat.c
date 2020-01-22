@@ -341,7 +341,11 @@ void massTagging (char* tagName, cat* auxCat){
 void deleteTag (char * name, cat* category){
 
     tag* currentTag = searchMap(category->tagMap, name);
-    tag* Untagged = searchMap(category->tagMap, "untagged");
+    tag* Untagged = searchMap(category->tagMap,"untagged");
+    if(Untagged == NULL){
+        addDefaultTag(category->tagMap);
+        Untagged = searchMap(category->tagMap,"untagged");
+    }
     char confirmDelete = 'n';
     if(currentTag == NULL){
         printf("Tag no existe, revise datos ingresados\n");
@@ -358,18 +362,12 @@ void deleteTag (char * name, cat* category){
                 if(confirmDelete != 'y')
                     return;
                 tagCleaner = eraseKeyMap(fileAux->file_tagmap,name);
-                free(tagCleaner);
-                tagCleaner = NULL;
-                if(emptyMap(fileAux->file_tagmap)){
-                    free(fileAux);
-                    fileAux = NULL;
-                }
+                free(fileAux);
+                fileAux = NULL;
                 fileAux = list_pop_front(currentTag->file_list);
                 continue;
             }
             tagCleaner = eraseKeyMap(fileAux->file_tagmap,name);
-            free(tagCleaner);
-            tagCleaner = NULL;
             if(emptyMap(fileAux->file_tagmap)){
                 list_push_back(Untagged->file_list,fileAux);
                 insertMap(fileAux->file_tagmap,"untagged",Untagged);
@@ -377,8 +375,8 @@ void deleteTag (char * name, cat* category){
             fileAux = list_pop_front(currentTag->file_list);
         }
         eraseKeyMap(category->tagMap,name);
-        currentTag = NULL;
         free(currentTag);
+        currentTag = NULL;
     }
     printf("Operacion exitosa \n");
     return;
