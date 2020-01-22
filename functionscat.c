@@ -457,6 +457,7 @@ int recentList(list* latest){
         while(filename_recents != NULL){
             printf("Archivo %d: %s \n",i,filename_recents->name);
             filename_recents = list_next(latest);
+            i++;
         }
     }else{
         printf("No hay archivos recentes. \n\n");
