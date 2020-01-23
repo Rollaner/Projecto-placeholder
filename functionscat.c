@@ -190,6 +190,7 @@ void taglist (char* tagName, cat* auxCat){
 
 void catList(Map* catMap){
     printf("Lista categorias: \n");
+
     cat* tempcat = firstMap(catMap);
     if(tempcat == NULL){
         printf("No hay categorias, ingrese una antes de proceder\n");
@@ -207,6 +208,7 @@ void catList(Map* catMap){
 void deleteCat(char * category, Map * catMap){
     cat* ToDel = malloc(sizeof(cat));
     tag* ToDelTag = malloc(sizeof(tag));
+    char* stringCatter = calloc(100,sizeof(tag));
     fileStruct* ToDelFile = calloc(30,sizeof(char));
     ToDel = searchMap(catMap,category);
     if(ToDel == NULL){
@@ -227,6 +229,10 @@ void deleteCat(char * category, Map * catMap){
             }
             removeAllMap(ToDel->tagMap);
         }
+        strcpy(stringCatter,"Files//");
+        strcat(stringCatter,ToDel->name);
+        strcat(stringCatter,"-tags.csv");
+        remove(stringCatter);
         if(ToDel->fileMap != NULL){
             while (ToDelFile != NULL){
                 free(ToDelFile);
@@ -235,6 +241,10 @@ void deleteCat(char * category, Map * catMap){
             }
             removeAllMap(ToDel->fileMap);
         }
+        strcpy(stringCatter,"Files//");
+        strcat(stringCatter,ToDel->name);
+        strcat(stringCatter,"-data.csv");
+        remove(stringCatter);
         free(ToDel);
         ToDel = NULL;
         eraseKeyMap(catMap,category);
@@ -341,7 +351,7 @@ void massTagging (char* tagName, cat* auxCat){
 void deleteTag (char * name, cat* category){
 
     tag* currentTag = searchMap(category->tagMap, name);
-    tag* Untagged = searchMap(category->tagMap,"untagged");
+    tag* Untagged = searchMap(category->tagMap, "untagged");
     if(Untagged == NULL){
         addDefaultTag(category->tagMap);
         Untagged = searchMap(category->tagMap,"untagged");
@@ -374,9 +384,9 @@ void deleteTag (char * name, cat* category){
             }
             fileAux = list_pop_front(currentTag->file_list);
         }
-        currentTag = eraseKeyMap(category->tagMap,currentTag->nameTag);
-        free(currentTag);
+        eraseKeyMap(category->tagMap,name);
         currentTag = NULL;
+        free(currentTag);
     }
     printf("Operacion exitosa \n");
     return;
@@ -438,10 +448,23 @@ void addFile(char* filename, cat* auxCat){
         strcpy(toBeAdded->name,filename);
         fileStruct* fileCheck = malloc(sizeof(fileStruct)); //para comprobar que la insercion fue exitosa
         fileCheck = searchMap(auxCat->fileMap,filename);
+        char* stringCatter = calloc(40, sizeof(char));
+        char* insertData = calloc(150, sizeof(char));
         if(fileCheck == NULL)
-            printf("Operation Failed, return to menu");
-        else
-        printf("archivo %s ingresado presione una tecla para continuar\n",fileCheck->name);
+            printf("Operacion Fallida, volviendo al menu\n");
+        else{
+            strcpy(stringCatter,"Files//DataFiles//");
+            strcat(stringCatter,toBeAdded->name);
+            strcat(stringCatter,".txt");
+            FILE* UltimateTest = fopen(stringCatter,"a");
+            printf("Ingrese Informacion para el archivo (tip: Active el modo de edicion rapida en propiedades de cmd') \n");
+            fgets(insertData,150,stdin);
+            if((strlen(insertData) > 0) &&(insertData[strlen(insertData)-1]== '\n'))
+               insertData[strlen(insertData)-1] = '\0';
+            fprintf(UltimateTest,"%s",insertData);
+            fclose(UltimateTest);
+            printf("Archivo %s ingresado presione una tecla para continuar\n",fileCheck->name);
+        }
         return;
     }
 }
@@ -468,9 +491,36 @@ int recentList(list* latest){
 void loadFile(char* filename, cat* auxCat, list* recents){
     fileStruct* aux = malloc(sizeof(fileStruct));
     fileStruct* recent_duplicate = malloc(sizeof(fileStruct));
+    char* strCatter = calloc(40,sizeof(char));
+    char* getData = calloc(150,sizeof(char));
+    char* OpenFile = calloc(160,sizeof(char));
     aux = searchMap(auxCat->fileMap,filename);
     if(aux != NULL){
-        printf("Cargando archivo %s (presione enter para continuar)",aux->name);
+        printf("Cargando archivo %s (presione enter para continuar)\n",aux->name);
+        strcpy(strCatter,"Files//DataFiles//");
+        strcat(strCatter,aux->name);
+        strcat(strCatter,".txt");
+        FILE* DataFile = fopen(strCatter,"r");
+        fgets(getData,150,DataFile);
+        printf("%s",getData);
+        if(getData[0] == '\0'){
+            printf("Archivo vacio, porfavor reingrese los datos en la aplicacion\n");
+            printf("El archivo pasara a ser eliminado\n");
+            recent_duplicate = list_first(recents);
+            while(recent_duplicate != NULL){
+                if(recent_duplicate == aux){
+                    list_pop_current(recents);
+                    break;
+                }
+                recent_duplicate = list_next(recents);
+            }
+            getchar();
+            quickDelete(filename,auxCat);
+            return;
+        }
+        strcat(OpenFile,"start ");
+        strcat(OpenFile,getData);
+        system(OpenFile);
         recent_duplicate = list_first(recents);
         while(recent_duplicate != NULL){
             if(recent_duplicate == aux){
@@ -490,16 +540,48 @@ void loadFile(char* filename, cat* auxCat, list* recents){
     }
 }
 
+void quickDelete(char* filename, cat* auxCat){
+    fileStruct* aux = malloc(sizeof(fileStruct));
+    char* stringCatter = calloc(40, sizeof(char));
+    aux = searchMap(auxCat->fileMap,filename);
+    if(aux != NULL){
+            strcpy(stringCatter,"Files//DataFiles//");
+            strcat(stringCatter,aux->name);
+            strcat(stringCatter,".txt");
+            if(remove(stringCatter) == 0){
+                printf("Operacion Fallida, revise integridad de los datos almacenados\n");
+                return;
+            }
+            aux = eraseKeyMap(auxCat->fileMap,filename);
+            free(aux);
+            aux = NULL;
+            printf("Archivo eliminado\n");
+        return;
+    }else{
+        printf("Archivo no encontrado, revise datos ingresados (presione cualquier tecla para proceder)\n");
+        return;
+    }
+
+}
+
 void deleteFile(char* filename, cat* auxCat, list* recents){
-    fileStruct* aux;
+    fileStruct* aux = malloc(sizeof(fileStruct));
     fileStruct* recent_duplicate = list_first(recents);
     char confirm = 'n';
+    char* stringCatter = calloc(40, sizeof(char));
     aux = searchMap(auxCat->fileMap,filename);
     if(aux != NULL){
         printf("Esta accion es permanente, desea continuar? y/n\n");
         scanf("%c", &confirm);
         if (confirm == 'y'){
-            eraseKeyMap(auxCat->fileMap,filename);
+            strcpy(stringCatter,"Files//DataFiles//");
+            strcat(stringCatter,aux->name);
+            strcat(stringCatter,".txt");
+            if(remove(stringCatter) == 0){
+                printf("Operacion Fallida, revise integridad de los datos almacenados\n");
+                return;
+            }
+            aux = eraseKeyMap(auxCat->fileMap,filename);
             while(recent_duplicate != NULL){
                 if(recent_duplicate == aux){
                     list_pop_current(recents);

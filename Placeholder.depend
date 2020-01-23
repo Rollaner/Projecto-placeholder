@@ -227,14 +227,14 @@
 	<ctype.h>
 	"functionstag.h"
 
-1579106940 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\list.c
+1579106940 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder - copy\list.c
 	"list.h"
 	<stdlib.h>
 	<assert.h>
 
-1579106940 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\list.h
+1579106940 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder - copy\list.h
 
-1572126884 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\map.c
+1572126884 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder - copy\map.c
 	"Map.h"
 	<math.h>
 	<string.h>
@@ -243,9 +243,25 @@
 	<assert.h>
 	<stdio.h>
 
-1572126884 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\map.h
+1572126884 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder - copy\map.h
 
-1579788044 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\functionscat.c
+1579787699 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder - copy\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"functionscat.h"
+	"Map.h"
+	"list.h"
+
+1579787680 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder - copy\functionscat.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Map.h"
+	"list.h"
+
+1579789028 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder - copy\functionscat.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -253,20 +269,4 @@
 	"functionscat.h"
 	"Map.h"
 	"list.h"
-
-1579788044 c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\functionscat.h
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	"Map.h"
-	"list.h"
-
-1579723863 source:c:\users\rollaner\desktop\universidad\tareas e.d\projecto-holder\main.c
-	<stdio.h>
-	<stdlib.h>
-	<ctype.h>
-	<string.h>
-	"Map.h"
-	"list.h"
-	"functionscat.h"
 

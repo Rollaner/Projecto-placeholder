@@ -30,7 +30,9 @@ void addFile(char* filename, cat* auxCat);
 
 void loadFile(char* filename, cat* auxCat, list* recents);
 
-void deleteFile(char* filename, cat* auxCat, list* recents);
+void quickDelete(char* fielname, cat* auxCat);
+
+void deleteFile(char* filename, cat* auxCat,list* recents);
 
 cat* enterCat (char * category,Map* catMap);
 
