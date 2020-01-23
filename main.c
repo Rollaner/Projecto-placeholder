@@ -204,7 +204,7 @@ int main()
                             fgets(fileName,30,stdin);
                             if ((strlen(fileName) > 0) && (fileName[strlen (fileName) - 1] == '\n'))
                             fileName[strlen (fileName) - 1] = '\0';
-                            deleteFile(fileName,auxCat);
+                            deleteFile(fileName,auxCat,latest);
                             op2 = '0';
                             scanf("%c", &buffer); //elimina basura
                             loadcatmenu();

@@ -490,8 +490,9 @@ void loadFile(char* filename, cat* auxCat, list* recents){
     }
 }
 
-void deleteFile(char* filename, cat* auxCat){
-    char* aux = calloc(30,sizeof(char));
+void deleteFile(char* filename, cat* auxCat, list* recents){
+    fileStruct* aux;
+    fileStruct* recent_duplicate = list_first(recents);
     char confirm = 'n';
     aux = searchMap(auxCat->fileMap,filename);
     if(aux != NULL){
@@ -499,6 +500,15 @@ void deleteFile(char* filename, cat* auxCat){
         scanf("%c", &confirm);
         if (confirm == 'y'){
             eraseKeyMap(auxCat->fileMap,filename);
+            while(recent_duplicate != NULL){
+                if(recent_duplicate == aux){
+                    list_pop_current(recents);
+                    break;
+                }
+                recent_duplicate = list_next(recents);
+            }
+            free(aux);
+            aux = NULL;
             printf("Archivo eliminado\n");
         }
         return;
