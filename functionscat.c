@@ -374,7 +374,7 @@ void deleteTag (char * name, cat* category){
             }
             fileAux = list_pop_front(currentTag->file_list);
         }
-        eraseKeyMap(category->tagMap,name);
+        currentTag = eraseKeyMap(category->tagMap,currentTag->nameTag);
         free(currentTag);
         currentTag = NULL;
     }

@@ -230,7 +230,8 @@ int main()
             catList(catMap);
             break;
 
-        case 4: if(recentList(latest)){
+        case 4:     system("cls");
+                    if(recentList(latest)){
                     printf("Ingrese nombre archivo\n");
                     fgets(fileName,10,stdin);
                     fgets(fileName,30,stdin);
