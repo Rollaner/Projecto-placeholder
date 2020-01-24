@@ -30,16 +30,16 @@ void loadcatmenu(){
                 printf("Mostrar archivos de una tag: Ingresar tecla [5]\n");
                 printf("Cargar un archivo especifico [6]\n");
                 printf("Eliminar un archivo especifico [7]\n");
-                printf("Volver al menu de la principal: Ingresar tecla [8]\n\n");
+                printf("Volver al menu principal: Ingresar tecla [8]\n\n");
 
 }
 
 int main()
 {
-    char op = 0;
-    int switchop = 0;
+    char* op = calloc(30,sizeof(char));
+    long switchop = 0;
     char op2 = 0;
-    int switchop2 = 0;
+    long switchop2 = 0;
     char buffer; //existe para eliminar basura.
     char* catname = calloc(30,sizeof(char)); //30 caracteres limite para nombres, lo corta si se pasa
     Map* catMap = loadCats();
@@ -49,14 +49,15 @@ int main()
     catList(catMap);
     char* fileName = calloc(30,sizeof(char));
     while(switchop != 5){          /** Menu de categoria, usa los valores que entrege el usuario (nombres)*/
-        scanf("%c", &op);
-        if((isalpha(op))||(isspace(op))){
-                while(isalpha(op)||(isspace(op))){
+        scanf("%s", op);
+        switchop = strtol(op,NULL,10); // para convertir de str a int.
+        if(switchop == 0){
+                while(switchop == 0){
                     printf("Entrada invalida, porfavor ingrese un numero\n");
-                    scanf("%c", &op);
+                    scanf("%s", op);
+                    switchop = strtol(op,op,10);
                 }
         }
-        switchop = op - '0'; // para convertir de char a int. '0' es el caracter cero. Todo esto es para que el menu no se rompa con caracteres
         switch(switchop){
 
         case 1: printf("Ingrese nombre de la categoria \n");
@@ -64,7 +65,6 @@ int main()
             scanf("%s",catname);
             addCat(catname,catMap);
             system("cls");
-                op = '0';
                 scanf("%c", &buffer); //elimina \n
                 system("cls");
                 loadmenu();
@@ -77,7 +77,6 @@ int main()
             if ((strlen(catname) > 0) && (catname[strlen (catname) - 1] == '\n'))
             catname[strlen (catname) - 1] = '\0';
             deleteCat(catname,catMap);
-                op = '0';
                 scanf("%c", &buffer); //elimina \n
                 system("cls");
                 loadmenu();
@@ -215,7 +214,6 @@ int main()
                             switchop2 = -2;
                             break;
                             default: printf("Opcion no valida, intente nuevamentente \n");
-                                     op2 = '0';
                                      scanf("%c", &buffer); //elimina basura
                                      loadcatmenu();
                                      cat_taglist(auxCat);
@@ -240,7 +238,6 @@ int main()
                     cat* recentCat = findLatest(catMap,fileName);
                     if(recentCat == NULL){
                         printf("Archivo no existe, porfavor intente nuevamente \n");
-                        op = '0';
                         scanf("%c", &buffer); //elimina \n
                         system("cls");
                         loadmenu();
@@ -250,7 +247,6 @@ int main()
                     }
                     loadFile(fileName,recentCat,latest);
                 }
-                op = '0';
                 scanf("%c", &buffer); //elimina \n
                 system("cls");
                 loadmenu();
